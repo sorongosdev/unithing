@@ -2,13 +2,13 @@ package com.unimind.unithing
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.unimind.unithing.databinding.ActivityMainBinding
+import com.unimind.unithing.databinding.ActivityMypageBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+class MypageActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityMypageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }
