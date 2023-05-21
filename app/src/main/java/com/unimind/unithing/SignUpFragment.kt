@@ -1,16 +1,20 @@
 package com.unimind.unithing
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.unimind.unithing.Contract.SignUserContract
+import com.unimind.unithing.Presenter.SignUserPresenter
 import com.unimind.unithing.databinding.FragmentSignUpBinding
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : Fragment(), SignUserContract.View {
     lateinit var binding: FragmentSignUpBinding
 
     override fun onCreateView(
@@ -22,6 +26,14 @@ class SignUpFragment : Fragment() {
         //유효성 검사
         checkEmail()
         checkPassword()
+
+        val presenter = SignUserPresenter(this)
+
+        binding.btnRegisterConfirm.setOnClickListener {
+            val userEmail = binding.emailInputEditText.text.toString()
+            val userPassword = binding.passwordInputEditText.text.toString()
+            presenter.requestSignUp(userEmail, userPassword)
+        }
 
         return binding.root
     }
@@ -44,5 +56,14 @@ class SignUpFragment : Fragment() {
                 binding.passwordTextInputLayout.error = if (text.length < 8) "8자 이상 입력해주세요" else null
             }
         }
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(requireContext(), message,Toast.LENGTH_LONG).show()
+    }
+
+    override fun nextActivity() {
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
     }
 }
