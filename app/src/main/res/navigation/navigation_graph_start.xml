@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/signUpFragment"
+    app:startDestination="@id/signInFragment"
     android:id="@+id/navigation_graph_start">
 
     <fragment
@@ -11,9 +11,6 @@
         android:name="com.unimind.unithing.SignUpFragment"
         tools:layout="@layout/fragment_sign_up"
         >
-        <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:label="signInFragment"
@@ -21,6 +18,9 @@
         android:name="com.unimind.unithing.SignInFragment"
         tools:layout="@layout/fragment_sign_in"
         >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
 
 </navigation>
