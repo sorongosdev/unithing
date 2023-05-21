@@ -14,7 +14,5 @@ class StartActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start)
 
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment1) as NavHostFragment
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment1) as NavHostFragment
-//        val navController = navHostFragment.findNavController()
     }
 }
