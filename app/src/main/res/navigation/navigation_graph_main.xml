@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment"
+    android:id="@+id/navigation_graph_main">
+
+    <fragment
+        android:label="homeFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.unimind.unithing.HomeFragment"
+        tools:layout="@layout/fragment_home"
+        >
+    </fragment>
+
+    <fragment
+        android:label="topPostFragment"
+        android:id="@+id/topPostFragment"
+        android:name="com.unimind.unithing.TopPostFragment"
+        tools:layout="@layout/fragment_top_post"
+        >
+    </fragment>
+
+    <fragment
+        android:label="notificationFragment"
+        android:id="@+id/notificationFragment"
+        android:name="com.unimind.unithing.NotificationFragment"
+        tools:layout="@layout/fragment_notification"
+        >
+    </fragment>
+
+</navigation>
