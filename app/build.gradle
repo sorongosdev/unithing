@@ -15,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentation Runner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -47,10 +47,14 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Firebase Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.5.0'
 
     //navigation graph
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
