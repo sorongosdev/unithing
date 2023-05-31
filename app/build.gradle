@@ -15,7 +15,11 @@ android {
         versionCode 1
         versionName "1.0"
 
-
+//<<<<<<< HEAD
+//
+//=======
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//>>>>>>> bb488a8bebe6021fa985d88f41ad1bd052375e2e
     }
 
     buildTypes {
