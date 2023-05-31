@@ -1,13 +1,12 @@
 package com.unimind.unithing.Repository.SignUserRemoteDataSource
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.unimind.unithing.Data.User
 
 // 싱글톤 객체
-object SignUserRepositoryImpl : SingUserRepository {
+object SignUserRepositoryImpl : SignUserRepository {
 
     private val firebaseAuth = Firebase.auth
     private val firestoreDB = FirebaseFirestore.getInstance().collection("UserAccount")
@@ -27,6 +26,7 @@ object SignUserRepositoryImpl : SingUserRepository {
                             callback(true, null)
                         } else {
                             deleteUserAuth()
+                            callback(false, "회원가입 실패")
                         }
                     }
                 } else {
