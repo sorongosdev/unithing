@@ -62,8 +62,15 @@ class SignUpFragment : Fragment(), SignUserContract.View {
         Toast.makeText(requireContext(), message,Toast.LENGTH_LONG).show()
     }
 
-    override fun nextActivity() {
+    override fun nextMainActivity() {
+        activity?.finish()
         val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun nextCertificationActivity() {
+        activity?.finish()
+        val intent = Intent(activity, CertificationActivity::class.java)
         startActivity(intent)
     }
 }

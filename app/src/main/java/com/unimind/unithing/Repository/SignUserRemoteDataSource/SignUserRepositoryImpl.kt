@@ -58,8 +58,6 @@ object SignUserRepositoryImpl : SignUserRepository {
 
 
     private fun createUserDB(email: String, callback: (Boolean) -> Unit) {
-
-
         val user = User(email, null, null, null, null, false, null, null, null, null)
 
         firestoreUserDB.document(userUid).set(user)
@@ -74,5 +72,21 @@ object SignUserRepositoryImpl : SignUserRepository {
     private fun deleteUserAuth() {
         // 향후 onComplete 및 onFailure 리스너 구현해야 할 가능성?
         firebaseAuth.currentUser?.delete()
+    }
+
+    override fun getCheck(callback: (Boolean) -> Unit) {
+        firestoreUserDB.document(userUid).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val check = document.data?.get("check") as Boolean
+                    callback(check)
+//                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                } else {
+//                    Log.d(TAG, "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+//                Log.d(TAG, "get failed with ", exception)
+            }
     }
 }

@@ -9,7 +9,15 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignUp(userEmail, userPassword) {
             isSuccess, errorMsg ->
             if (isSuccess) {
-                view.nextActivity()
+                SignUserRepositoryImpl.getCheck {
+                    isSuccess ->
+                    if (isSuccess) {
+                        view.nextMainActivity()
+                    } else {
+                        view.nextCertificationActivity()
+                    }
+                }
+
             } else {
                 view.showToast("회원가입 실패 ${errorMsg}")
             }
@@ -20,7 +28,14 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignIn(userEmail, userPassword) {
                 isSuccess, errorMsg ->
             if (isSuccess) {
-                view.nextActivity()
+                SignUserRepositoryImpl.getCheck {
+                        isSuccess ->
+                    if (isSuccess) {
+                        view.nextMainActivity()
+                    } else {
+                        view.nextCertificationActivity()
+                    }
+                }
             } else {
                 view.showToast("로그인 실패 ${errorMsg}")
             }

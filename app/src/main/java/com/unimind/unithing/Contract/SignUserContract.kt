@@ -3,7 +3,8 @@ package com.unimind.unithing.Contract
 interface SignUserContract {
     interface View {
         fun showToast(message: String)
-        fun nextActivity()
+        fun nextMainActivity()
+        fun nextCertificationActivity()
     }
 
     interface Presenter {

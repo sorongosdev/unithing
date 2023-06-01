@@ -9,19 +9,23 @@ import com.unimind.unithing.Data.MajorCERT
 object UserRepositoryImpl : UserRepository {
 
     private val firebaseAuth = Firebase.auth
-    private val firestoreDB = FirebaseFirestore.getInstance().collection("major_certification")
+    private val firestoreUserDB = FirebaseFirestore.getInstance().collection("UserAccount")
+    private val firestoreCertDB = FirebaseFirestore.getInstance().collection("major_certificate")
 
     private val userUid = firebaseAuth.uid.toString()
 
     override fun createCertificateDB(callback: (Boolean) -> Unit) {
         val majorCERT = MajorCERT(null)
 
-        firestoreDB.document(userUid).set(majorCERT)
+        firestoreCertDB.document(userUid).set(majorCERT)
             .addOnCompleteListener {
                 callback(true)
             }.addOnFailureListener {
                 callback(false)
             }
+
+        firestoreUserDB.document(userUid).update("check", true)
+
     }
 
 
