@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Unithing"
         tools:targetApi="33">
         <activity
+            android:name=".CertificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
@@ -20,8 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".MypageActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MypageActivity" />
     </application>
 
 </manifest>

@@ -45,7 +45,7 @@ class SignInFragment : Fragment(), SignUserContract.View {
 
     override fun nextActivity() {
         activity?.finish()
-        val intent = Intent(activity, MainActivity::class.java)
+        val intent = Intent(activity, CertificationActivity::class.java)
         startActivity(intent)
     }
 }

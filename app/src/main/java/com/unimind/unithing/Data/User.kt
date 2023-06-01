@@ -7,6 +7,8 @@ data class User (
     val nickname: String? = null,
     val major: String? = null,
     val level: Int? = null,
+    val experience: Int? = null,
+    val authorized: Boolean? = null,
     val badge: String? = null, // 향후 컬렉션 형식으로 변경해야 함
     val myComment: String? = null, // 향후 컬렉션 형식으로 변경해야 함
     val myPost: String? = null, // 향후 컬렉션 형식으로 변경해야 함

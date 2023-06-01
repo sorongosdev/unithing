@@ -1,5 +1,6 @@
 package com.unimind.unithing.Repository.SignUserRemoteDataSource
 
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -9,7 +10,9 @@ import com.unimind.unithing.Data.User
 object SignUserRepositoryImpl : SignUserRepository {
 
     private val firebaseAuth = Firebase.auth
-    private val firestoreDB = FirebaseFirestore.getInstance().collection("UserAccount")
+    private val firestoreUserDB = FirebaseFirestore.getInstance().collection("UserAccount")
+    private val firestoreCertDB = FirebaseFirestore.getInstance().collection("major_certificate")
+    private val userUid = firebaseAuth.uid.toString()
 
 
     override fun requestSignUp(
@@ -53,12 +56,13 @@ object SignUserRepositoryImpl : SignUserRepository {
             }
     }
 
+
     private fun createUserDB(email: String, callback: (Boolean) -> Unit) {
-        val userUid = firebaseAuth.uid.toString()
 
-        val user = User(email, null, null, null, null, null, null, null)
 
-        firestoreDB.document(userUid).set(user)
+        val user = User(email, null, null, null, null, false, null, null, null, null)
+
+        firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
                 callback(true)
             }.addOnFailureListener {

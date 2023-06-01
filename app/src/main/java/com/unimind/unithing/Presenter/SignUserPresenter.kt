@@ -26,4 +26,5 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
             }
         }
     }
+
 }
