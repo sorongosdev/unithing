@@ -24,8 +24,7 @@ class SignUpFragment : Fragment(), SignUserContract.View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
 
         //유효성 검사
-        checkEmail()
-        checkPassword()
+        checkValidation()
 
         val presenter = SignUserPresenter(this)
 
@@ -38,8 +37,9 @@ class SignUpFragment : Fragment(), SignUserContract.View {
         return binding.root
     }
 
-    //이메일아이디, 비번 유효성 검사 구현
-    private fun checkEmail() {
+    /**이메일아이디, 비번 유효성 검사 구현*/
+    override fun checkValidation() {
+        //이메일 주소 형식 갖추어야함
         binding.fragmentSignupEmailTiet.addTextChangedListener {
             val email = binding.fragmentSignupEmailTiet.text.toString()
             val pattern = Patterns.EMAIL_ADDRESS
@@ -47,10 +47,7 @@ class SignUpFragment : Fragment(), SignUserContract.View {
                 if (pattern.matcher(email).matches()) null
                 else "이메일 주소 형식을 입력해주세요."
         }
-    }
-
-    /**비밀번호는 8자리 이상이어야함*/
-    private fun checkPassword() {
+        //비밀번호
         binding.fragmentSignupPasswordTiet.addTextChangedListener {
             it?.let { text ->
                 binding.fragmentSignupPasswordTil.error = if (text.length < 8) "8자 이상 입력해주세요" else null
