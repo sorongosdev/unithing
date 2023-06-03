@@ -8,9 +8,8 @@
         android:padding="24dp"
         >
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="home"/>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </layout>

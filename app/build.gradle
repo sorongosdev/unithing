@@ -52,7 +52,7 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // Firebase Firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.5.0'
+    implementation  'com.google.firebase:firebase-firestore-ktx:24.6.1'
 
     //navigation graph
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
