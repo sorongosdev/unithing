@@ -9,14 +9,14 @@
         android:label="signUpFragment"
         android:id="@+id/signUpFragment"
         android:name="com.unimind.unithing.SignUpFragment"
-        tools:layout="@layout/fragment_sign_up"
+        tools:layout="@layout/fragment_signup"
         >
     </fragment>
     <fragment
         android:label="signInFragment"
         android:id="@+id/signInFragment"
         android:name="com.unimind.unithing.SignInFragment"
-        tools:layout="@layout/fragment_sign_in"
+        tools:layout="@layout/fragment_signin"
         >
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"

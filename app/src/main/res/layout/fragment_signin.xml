@@ -10,7 +10,7 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailTextInputLayout"
+            android:id="@+id/fragment_signin_email_til"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailInputEditText"
+                android:id="@+id/fragment_signin_email_tiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이메일 입력" />
@@ -27,7 +27,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordTextInputLayout"
+            android:id="@+id/fragment_signin_pw_til"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordInputEditText"
+                android:id="@+id/fragment_signin_pw_tiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 입력"
@@ -46,7 +46,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <Button
-            android:id="@+id/signInButton"
+            android:id="@+id/fragment_signin_signin_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그인"
@@ -54,7 +54,7 @@
             />
 
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/fragment_signin_signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="회원가입" />

@@ -8,7 +8,7 @@
     android:layout_marginTop="15dp">
 
     <ImageView
-        android:id="@+id/profileImageView"
+        android:id="@+id/item_feed_profile_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_person_24"
@@ -18,15 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="도소라"
-        app:layout_constraintTop_toTopOf="@id/profileImageView"
-        app:layout_constraintStart_toEndOf="@id/profileImageView"
+        app:layout_constraintTop_toTopOf="@id/item_feed_profile_iv"
+        app:layout_constraintStart_toEndOf="@id/item_feed_profile_iv"
         />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="내용\n\n\n\n\n\n\n\n...내용"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@id/item_feed_profile_iv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
