@@ -4,6 +4,7 @@ interface SignUserContract {
     interface View {
         fun showToast(message: String)
         fun nextActivity()
+        fun checkValidation()
     }
 
     interface Presenter {
