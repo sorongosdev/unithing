@@ -3,6 +3,7 @@ package com.unimind.unithing.Data
 import android.provider.ContactsContract.CommonDataKinds.Email
 
 data class User (
+    val uid: String? = null,
     val email: String? = null,
     val nickname: String? = null,
     val major: String? = null,

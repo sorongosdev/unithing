@@ -4,19 +4,25 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.MajorCERT
+import com.unimind.unithing.R
+import com.unimind.unithing.StringResource
 
 object UserRepositoryImpl : UserRepository {
 
     private val firebaseAuth = Firebase.auth
-    private val firestoreDB = FirebaseFirestore.getInstance().collection("major_certification")
+
+    private val firestoreCertDB = FirebaseFirestore.getInstance().collection(
+        StringResource.getStringResource(
+            CustomApplication.ctx, R.string.db_major_certificate))
 
     private val userUid = firebaseAuth.uid.toString()
 
     override fun createCertificateDB(callback: (Boolean) -> Unit) {
         val majorCERT = MajorCERT(null)
 
-        firestoreDB.document(userUid).set(majorCERT)
+        firestoreCertDB.document(userUid).set(majorCERT)
             .addOnCompleteListener {
                 callback(true)
             }.addOnFailureListener {

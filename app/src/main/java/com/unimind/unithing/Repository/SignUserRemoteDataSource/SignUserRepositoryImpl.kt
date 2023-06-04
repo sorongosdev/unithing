@@ -1,19 +1,24 @@
 package com.unimind.unithing.Repository.SignUserRemoteDataSource
 
+import android.app.Application
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.User
+import com.unimind.unithing.R
+import com.unimind.unithing.StringResource
 
 // 싱글톤 객체
 object SignUserRepositoryImpl : SignUserRepository {
 
     private val firebaseAuth = Firebase.auth
-    private val firestoreUserDB = FirebaseFirestore.getInstance().collection("UserAccount")
-    private val firestoreCertDB = FirebaseFirestore.getInstance().collection("major_certificate")
-    private val userUid = firebaseAuth.uid.toString()
 
+    private val firestoreUserDB = FirebaseFirestore.getInstance().collection(StringResource.getStringResource(CustomApplication.ctx, R.string.db_user_account))
+    private val firestoreCertDB = FirebaseFirestore.getInstance().collection(StringResource.getStringResource(CustomApplication.ctx, R.string.db_major_certificate))
+    //private val userUid = firebaseAuth.uid.toString()
+    private lateinit var userUid: String
 
     override fun requestSignUp(
         email: String,
@@ -24,6 +29,7 @@ object SignUserRepositoryImpl : SignUserRepository {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    userUid = task.result.user?.uid.toString()
                     createUserDB(email) { isSuccess ->
                         if (isSuccess) {
                             callback(true, null)
@@ -58,9 +64,7 @@ object SignUserRepositoryImpl : SignUserRepository {
 
 
     private fun createUserDB(email: String, callback: (Boolean) -> Unit) {
-
-
-        val user = User(email, null, null, null, null, false, null, null, null, null)
+        val user = User(email = email, uid = userUid, authorized = false)
 
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
