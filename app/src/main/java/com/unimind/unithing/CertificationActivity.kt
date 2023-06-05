@@ -5,11 +5,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -22,15 +26,19 @@ import com.esafirm.imagepicker.features.ReturnMode
 import com.esafirm.imagepicker.features.createImagePickerIntent
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.unimind.unithing.Contract.UserContract
 import com.unimind.unithing.Presenter.UserPresenter
 import com.unimind.unithing.databinding.ActivityCertificationBinding
+import java.io.IOException
 
 class CertificationActivity : AppCompatActivity(), UserContract.View {
-    private lateinit var binding : ActivityCertificationBinding
-    private lateinit var presenter : UserPresenter
+    private lateinit var binding: ActivityCertificationBinding
+    private lateinit var presenter: UserPresenter
 
     // 카메라 호출을 위한 상수
     private val REQUEST_IMAGE_CAPTURE = 1
@@ -42,12 +50,22 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
             setImageView(MediaStore.Images.Media.getBitmap(getContentResolver(), image.uri))
 
 
-            Toast.makeText(this@CertificationActivity,
+            Toast.makeText(
+                this@CertificationActivity,
                 "이미지 가져옴.",
-                Toast.LENGTH_SHORT)
+                Toast.LENGTH_SHORT
+            )
                 .show()
 
-            presenter.requestUploadImg(MediaStore.Images.Media.getBitmap(getContentResolver(), image.uri))
+            presenter.requestUploadImg(
+                MediaStore.Images.Media.getBitmap(
+                    getContentResolver(),
+                    image.uri
+                )
+            )
+
+          //  recognizeFromImage(image.uri)
+
         }
     }
 
@@ -96,6 +114,8 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             setImageView(imageBitmap)
+
+            recognizeFromImage(imageBitmap)
             presenter.requestUploadImg(imageBitmap)
         }
     }
@@ -106,28 +126,33 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
             .load(resource)
             .into(binding.activityCertificationIv)
     }
+
     // 권한 관련 코드
-    private fun requestPermission(logic : () -> Unit){
+    private fun requestPermission(logic: () -> Unit) {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
                 override fun onPermissionGranted() {
                     logic()
                 }
+
                 override fun onPermissionDenied(deniedPermissions: List<String>) {
-                    Toast.makeText(this@CertificationActivity,
+                    Toast.makeText(
+                        this@CertificationActivity,
                         "권한을 허가해주세요.",
-                        Toast.LENGTH_SHORT)
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             })
 
             .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setPermissions(android.Manifest.permission.CAMERA,
+            .setPermissions(
+                android.Manifest.permission.CAMERA,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,)
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            )
             .check()
     }
-
 
 
     override fun showToast(message: String) {
@@ -138,5 +163,26 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
         this?.finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+
+    private fun recognizeFromImage(img: Bitmap) {
+        try {
+            val image = InputImage.fromBitmap(img, 0)
+            //val image = InputImage.fromFilePath(this, img)
+            //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+            val recognizer =
+                TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+            recognizer.process(image)
+                .addOnSuccessListener {
+                    binding.activityCertificationGalleryTv.setText(it.text)
+                    Log.d("recognized", it.text.toString())
+                }
+                .addOnFailureListener {
+
+                }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

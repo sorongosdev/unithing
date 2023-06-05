@@ -16,9 +16,11 @@ object UserRepositoryImpl : UserRepository {
 
     private val firebaseAuth = Firebase.auth
 
+    private val certDBname = StringResource.getStringResource(
+        CustomApplication.ctx, R.string.db_major_certificate)
+
     private val firestoreCertDB = FirebaseFirestore.getInstance().collection(
-        StringResource.getStringResource(
-            CustomApplication.ctx, R.string.db_major_certificate))
+        certDBname)
 
     private val userUid = firebaseAuth.uid.toString()
 
@@ -36,7 +38,7 @@ object UserRepositoryImpl : UserRepository {
     }
 
     override fun uploadStorage(image: Bitmap, callback: (Boolean) -> Unit) {
-        val storageRef = firebaseStorage.child("major_certification/${userUid}.jpg")
+        val storageRef = firebaseStorage.child("${certDBname}/${userUid}.jpg")
 
         val baos = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos)
