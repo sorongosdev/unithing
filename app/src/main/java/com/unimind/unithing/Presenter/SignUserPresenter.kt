@@ -27,4 +27,15 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         }
     }
 
+    override fun checkValidation(email: String) {
+        SignUserRepositoryImpl.checkValidation(email){ errorMsg->
+            if (errorMsg != null){
+                view.showToast("wrong")
+            }
+            else {
+                view.showToast("great")
+            }
+        }
+    }
+
 }

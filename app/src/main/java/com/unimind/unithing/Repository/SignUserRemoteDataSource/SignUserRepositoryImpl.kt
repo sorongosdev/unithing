@@ -1,6 +1,7 @@
 package com.unimind.unithing.Repository.SignUserRemoteDataSource
 
 import android.util.Log
+import android.util.Patterns
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -54,6 +55,12 @@ object SignUserRepositoryImpl : SignUserRepository {
                     callback(false, errorMessage)
                 }
             }
+    }
+
+    override fun checkValidation(email: String, callback: (String?) -> Unit) {
+        val pattern = Patterns.EMAIL_ADDRESS
+        if (pattern.matcher(email).matches()) callback(null)
+        else callback("이메일 주소 형식을 입력해주세요.")
     }
 
 
