@@ -23,6 +23,7 @@ object SignUserRepositoryImpl : SignUserRepository {
     override fun requestSignUp(
         email: String,
         password: String,
+        type: String,
         callback: (Boolean, String?) -> Unit
     ) {
 
@@ -30,7 +31,7 @@ object SignUserRepositoryImpl : SignUserRepository {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     userUid = task.result.user?.uid.toString()
-                    createUserDB(email) { isSuccess ->
+                    createUserDB(email, type) { isSuccess ->
                         if (isSuccess) {
                             callback(true, null)
                         } else {
@@ -63,8 +64,8 @@ object SignUserRepositoryImpl : SignUserRepository {
     }
 
 
-    private fun createUserDB(email: String, callback: (Boolean) -> Unit) {
-        val user = User(email = email, uid = userUid, authorized = false)
+    private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {
+        val user = User(email = email, type = type, uid = userUid, authorized = false)
 
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {

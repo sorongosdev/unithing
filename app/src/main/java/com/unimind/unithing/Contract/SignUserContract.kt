@@ -9,7 +9,7 @@ interface SignUserContract {
     }
 
     interface Presenter {
-        fun requestSignUp(userEmail: String, userPassword: String)
+        fun requestSignUp(userEmail: String, userPassword: String, userType: String)
         fun requestSignIn(userEmail: String, userPassword: String)
 
     }

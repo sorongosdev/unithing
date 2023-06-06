@@ -7,6 +7,7 @@ data class User (
     val email: String? = null,
     val nickname: String? = null,
     val major: String? = null,
+    val type: String? = null,
     val level: Int? = null,
     val experience: Int? = null,
     val authorized: Boolean? = null,
