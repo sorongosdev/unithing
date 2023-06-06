@@ -1,6 +1,8 @@
 package com.unimind.unithing
 
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -46,9 +48,7 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
     // 갤러리 라이브러리 관련 프로퍼티
     val launcher = registerImagePicker { result: List<Image> ->
         result.forEach { image ->
-
-            setImageView(MediaStore.Images.Media.getBitmap(getContentResolver(), image.uri))
-
+            val imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), image.uri)
 
             Toast.makeText(
                 this@CertificationActivity,
@@ -57,15 +57,9 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
             )
                 .show()
 
-            presenter.requestUploadImg(
-                MediaStore.Images.Media.getBitmap(
-                    getContentResolver(),
-                    image.uri
-                )
-            )
-
-          //  recognizeFromImage(image.uri)
-
+            setImageView(imageBitmap)
+            presenter.recognizeFromImage(imageBitmap)
+            presenter.requestUploadImg(imageBitmap)
         }
     }
 
@@ -74,6 +68,7 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
         mode = ImagePickerMode.SINGLE // default is multi image mode
         isIncludeVideo = false // 영상 제외하고 이미지만 불러옴
         isFolderMode = true // false로 설정시  폴더 선택 불가능. 모든 사진
+        isShowCamera = false
     }
 
 
@@ -84,76 +79,49 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
 
         binding.activityCertificationBtn1.setOnClickListener {
             presenter.requestCreateDB()
-
         }
 
         binding.activityCertificationCameraBtn.setOnClickListener {
-            requestPermission {
-                openCamera()
-            }
+            presenter.requestPermissions("Camera")
         }
 
         binding.activityCertificationGalleryBtn.setOnClickListener {
-            requestPermission {
-                launcher.launch(config)
-            }
-
+            presenter.requestPermissions("Gallery")
         }
-
-
     }
 
 
-    private fun openCamera() {
+    override fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
+
+    override fun openGallery() {
+        launcher.launch(config)
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            setImageView(imageBitmap)
 
-            recognizeFromImage(imageBitmap)
+            setImageView(imageBitmap)
+            presenter.recognizeFromImage(imageBitmap)
             presenter.requestUploadImg(imageBitmap)
         }
     }
 
 
-    fun setImageView(resource: Bitmap) {
+    override fun setImageView(resource: Bitmap) {
         Glide.with(this)
             .load(resource)
             .into(binding.activityCertificationIv)
     }
 
-    // 권한 관련 코드
-    private fun requestPermission(logic: () -> Unit) {
-        TedPermission.create()
-            .setPermissionListener(object : PermissionListener {
-                override fun onPermissionGranted() {
-                    logic()
-                }
-
-                override fun onPermissionDenied(deniedPermissions: List<String>) {
-                    Toast.makeText(
-                        this@CertificationActivity,
-                        "권한을 허가해주세요.",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            })
-
-            .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setPermissions(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            )
-            .check()
+    override fun setText(text: String) {
+        binding.activityCertificationRecognizedMajorTv.setText(text)
     }
-
 
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
@@ -163,26 +131,5 @@ class CertificationActivity : AppCompatActivity(), UserContract.View {
         this?.finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-    }
-
-
-    private fun recognizeFromImage(img: Bitmap) {
-        try {
-            val image = InputImage.fromBitmap(img, 0)
-            //val image = InputImage.fromFilePath(this, img)
-            //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-            val recognizer =
-                TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-            recognizer.process(image)
-                .addOnSuccessListener {
-                    binding.activityCertificationGalleryTv.setText(it.text)
-                    Log.d("recognized", it.text.toString())
-                }
-                .addOnFailureListener {
-
-                }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
     }
 }

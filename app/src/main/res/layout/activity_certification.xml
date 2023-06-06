@@ -58,10 +58,10 @@
             app:layout_constraintTop_toBottomOf="@+id/activity_certification_iv" />
 
         <TextView
-            android:id="@+id/activity_certification_gallery_tv"
+            android:id="@+id/activity_certification_recognized_major_tv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="TextView"
+            android:text="asdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddasasdsaddas"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.215"
