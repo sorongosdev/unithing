@@ -6,6 +6,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -31,7 +32,11 @@ class SignUpFragment : Fragment(), SignUserContract.View {
         binding.fragmentSignupSignupBtn.setOnClickListener {
             val userEmail = binding.fragmentSignupEmailTiet.text.toString()
             val userPassword = binding.fragmentSignupPasswordTiet.text.toString()
-            presenter.requestSignUp(userEmail, userPassword)
+
+            val selectedRadioButtonId = binding.fragmentSignupRg.checkedRadioButtonId
+            val userType = binding.fragmentSignupRg.findViewById<RadioButton>(selectedRadioButtonId).text.toString()
+
+            presenter.requestSignUp(userEmail, userPassword, userType)
         }
 
         return binding.root

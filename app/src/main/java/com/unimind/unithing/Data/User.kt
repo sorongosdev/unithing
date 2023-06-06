@@ -3,9 +3,11 @@ package com.unimind.unithing.Data
 import android.provider.ContactsContract.CommonDataKinds.Email
 
 data class User (
+    val uid: String? = null,
     val email: String? = null,
     val nickname: String? = null,
     val major: String? = null,
+    val type: String? = null,
     val level: Int? = null, // 레벨 (누적 경험치)
     val experience: Int? = null, // 주기적으로 초기화되는 경험치
     val authorized: Boolean? = null,
