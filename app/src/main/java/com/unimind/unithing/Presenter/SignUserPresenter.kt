@@ -5,8 +5,8 @@ import com.unimind.unithing.Repository.SignUserRemoteDataSource.SignUserReposito
 
 class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Presenter {
 
-    override fun requestSignUp(userEmail: String, userPassword: String) {
-        SignUserRepositoryImpl.requestSignUp(userEmail, userPassword) {
+    override fun requestSignUp(userEmail: String, userPassword: String, userType: String) {
+        SignUserRepositoryImpl.requestSignUp(userEmail, userPassword, userType) {
             isSuccess, errorMsg ->
             if (isSuccess) {
                 view.nextActivity()

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        >
+        android:padding="24dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_signup_email_til"
@@ -39,16 +39,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 입력"
-                android:longClickable="false"
                 android:inputType="textPassword"
-                />
+                android:longClickable="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/fragment_signup_rg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fragment_signup_student_rdb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="학생" />
+
+                <RadioButton
+                    android:id="@+id/fragment_signup_professor_rdb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="교수" />
+            </RadioGroup>
+        </LinearLayout>
 
         <Button
             android:id="@+id/fragment_signup_signup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="가입하기" />
+
     </LinearLayout>
 </layout>
