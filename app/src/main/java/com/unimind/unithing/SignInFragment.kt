@@ -49,7 +49,7 @@ class SignInFragment : Fragment(), SignUserContract.View {
         startActivity(intent)
     }
 
-    override fun checkValidation() {
+    override fun showValidation(errorMsg: String?) {
         TODO("Not yet implemented")
     }
 }

@@ -2,6 +2,7 @@ package com.unimind.unithing.Repository.SignUserRemoteDataSource
 
 import android.app.Application
 import android.util.Log
+import android.util.Patterns
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -62,7 +63,6 @@ object SignUserRepositoryImpl : SignUserRepository {
                 }
             }
     }
-
 
     private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {
         val user = User(email = email, type = type, uid = userUid, authorized = false)

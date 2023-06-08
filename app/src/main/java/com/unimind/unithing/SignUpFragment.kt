@@ -24,40 +24,22 @@ class SignUpFragment : Fragment(), SignUserContract.View {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
 
-        //유효성 검사
-        checkValidation()
-
         val presenter = SignUserPresenter(this)
 
+        binding.fragmentSignupEmailTiet.addTextChangedListener {
+            val email = binding.fragmentSignupEmailTiet.text.toString()
+            presenter.checkValidation(email)
+        }
         binding.fragmentSignupSignupBtn.setOnClickListener {
             val userEmail = binding.fragmentSignupEmailTiet.text.toString()
             val userPassword = binding.fragmentSignupPasswordTiet.text.toString()
-
             val selectedRadioButtonId = binding.fragmentSignupRg.checkedRadioButtonId
             val userType = binding.fragmentSignupRg.findViewById<RadioButton>(selectedRadioButtonId).text.toString()
-
+            
             presenter.requestSignUp(userEmail, userPassword, userType)
         }
 
         return binding.root
-    }
-
-    /**이메일아이디, 비번 유효성 검사 구현*/
-    override fun checkValidation() {
-        //이메일 주소 형식 갖추어야함
-        binding.fragmentSignupEmailTiet.addTextChangedListener {
-            val email = binding.fragmentSignupEmailTiet.text.toString()
-            val pattern = Patterns.EMAIL_ADDRESS
-            binding.fragmentSignupEmailTil.error =
-                if (pattern.matcher(email).matches()) null
-                else "이메일 주소 형식을 입력해주세요."
-        }
-        //비밀번호
-        binding.fragmentSignupPasswordTiet.addTextChangedListener {
-            it?.let { text ->
-                binding.fragmentSignupPasswordTil.error = if (text.length < 8) "8자 이상 입력해주세요" else null
-            }
-        }
     }
 
     override fun showToast(message: String) {
@@ -67,5 +49,9 @@ class SignUpFragment : Fragment(), SignUserContract.View {
     override fun nextActivity() {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun showValidation(errorMsg : String?) {
+        binding.fragmentSignupEmailTil.error = errorMsg
     }
 }
