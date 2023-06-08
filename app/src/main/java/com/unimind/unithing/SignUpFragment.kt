@@ -24,9 +24,6 @@ class SignUpFragment : Fragment(), SignUserContract.View {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup, container, false)
 
-//        //유효성 검사
-//        checkValidation()
-
         val presenter = SignUserPresenter(this)
 
         binding.fragmentSignupEmailTiet.addTextChangedListener {
@@ -44,24 +41,6 @@ class SignUpFragment : Fragment(), SignUserContract.View {
 
         return binding.root
     }
-
-//    /**이메일아이디, 비번 유효성 검사 구현*/
-//    override fun checkValidation() {
-//        //이메일 주소 형식 갖추어야함
-//        binding.fragmentSignupEmailTiet.addTextChangedListener {
-//            val email = binding.fragmentSignupEmailTiet.text.toString()
-//            val pattern = Patterns.EMAIL_ADDRESS
-//            binding.fragmentSignupEmailTil.error =
-//                if (pattern.matcher(email).matches()) null
-//                else "이메일 주소 형식을 입력해주세요."
-//        }
-//        //비밀번호
-//        binding.fragmentSignupPasswordTiet.addTextChangedListener {
-//            it?.let { text ->
-//                binding.fragmentSignupPasswordTil.error = if (text.length < 8) "8자 이상 입력해주세요" else null
-//            }
-//        }
-//    }
 
     override fun showToast(message: String) {
         Toast.makeText(requireContext(), message,Toast.LENGTH_LONG).show()

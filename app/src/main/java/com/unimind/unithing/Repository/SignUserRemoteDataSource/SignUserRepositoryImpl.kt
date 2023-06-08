@@ -64,14 +64,6 @@ object SignUserRepositoryImpl : SignUserRepository {
             }
     }
 
-    /**실질적으로 이메일 패턴인지 검사하는 부분*/
-    override fun checkValidation(email: String, callback: (Boolean) -> Unit) {
-        val pattern = Patterns.EMAIL_ADDRESS
-        if (pattern.matcher(email).matches()) callback(false) // 정상적인 이메일
-        else callback(true) // 이메일 오류
-    }
-
-
     private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {
         val user = User(email = email, type = type, uid = userUid, authorized = false)
 

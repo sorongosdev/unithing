@@ -1,5 +1,6 @@
 package com.unimind.unithing.Presenter
 
+import android.util.Patterns
 import com.unimind.unithing.Contract.SignUserContract
 import com.unimind.unithing.Repository.SignUserRemoteDataSource.SignUserRepositoryImpl
 
@@ -29,14 +30,10 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
 
     /**뷰를 띄워줌*/
     override fun checkValidation(email: String) {
-        SignUserRepositoryImpl.checkValidation(email){ errorEmail ->
-            if (errorEmail){
-                view.showValidation("잘못된 이메일 형식")
-            }
-            else {
-                view.showValidation(null)
-            }
+        val pattern = Patterns.EMAIL_ADDRESS
+        if (pattern.matcher(email).matches()) {
+            view.showValidation(null)
         }
+        else view.showValidation("잘못된 이메일 형식") // 이메일 오류
     }
-
 }
