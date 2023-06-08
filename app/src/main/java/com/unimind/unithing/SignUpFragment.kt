@@ -31,14 +31,11 @@ class SignUpFragment : Fragment(), SignUserContract.View {
         binding.fragmentSignupEmailTiet.addTextChangedListener {
             val email = binding.fragmentSignupEmailTiet.text.toString()
             presenter.checkValidation(email)
-//            val pattern = Patterns.EMAIL_ADDRESS
-//            binding.fragmentSignupEmailTil.error =
-//                if (pattern.matcher(email).matches()) null
-//                else "이메일 주소 형식을 입력해주세요."
         }
         binding.fragmentSignupSignupBtn.setOnClickListener {
             val userEmail = binding.fragmentSignupEmailTiet.text.toString()
             val userPassword = binding.fragmentSignupPasswordTiet.text.toString()
+            presenter.requestSignUp(userEmail, userPassword)
             presenter.requestSignUp(userEmail, userPassword)
         }
 
@@ -70,5 +67,9 @@ class SignUpFragment : Fragment(), SignUserContract.View {
     override fun nextActivity() {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun showValidation(errorMsg : String?) {
+        binding.fragmentSignupEmailTil.error = errorMsg
     }
 }

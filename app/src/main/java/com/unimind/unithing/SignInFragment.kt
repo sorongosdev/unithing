@@ -48,4 +48,8 @@ class SignInFragment : Fragment(), SignUserContract.View {
         val intent = Intent(activity, CertificationActivity::class.java)
         startActivity(intent)
     }
+
+    override fun showValidation(errorMsg: String?) {
+        TODO("Not yet implemented")
+    }
 }

@@ -27,13 +27,14 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         }
     }
 
+    /**뷰를 띄워줌*/
     override fun checkValidation(email: String) {
-        SignUserRepositoryImpl.checkValidation(email){ errorMsg->
-            if (errorMsg != null){
-                view.showToast("wrong")
+        SignUserRepositoryImpl.checkValidation(email){ errorEmail ->
+            if (errorEmail){
+                view.showValidation("잘못된 이메일 형식")
             }
             else {
-                view.showToast("great")
+                view.showValidation(null)
             }
         }
     }
