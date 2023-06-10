@@ -1,24 +1,19 @@
 package com.unimind.unithing.Presenter
 
 import android.graphics.Bitmap
-import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
-import com.esafirm.imagepicker.features.ImagePickerConfig
-import com.esafirm.imagepicker.features.ImagePickerMode
-import com.esafirm.imagepicker.model.Image
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
-import com.unimind.unithing.Contract.UserContract
-import com.unimind.unithing.Repository.UserRemoteDataSource.UserRepositoryImpl
+import com.unimind.unithing.Contract.CertificateContract
+import com.unimind.unithing.Repository.RemoteDataSource.CertificateRepositoryImpl
 import java.io.IOException
 
-class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
+class UserPresenter(val view: CertificateContract.View) : CertificateContract.Presenter {
     override fun requestCreateDB() {
-        UserRepositoryImpl.createCertificateDB { isSuccess ->
+        CertificateRepositoryImpl.createCertificateDB { isSuccess ->
             if (isSuccess) {
                 //view.nextActivity()
             } else {
@@ -28,7 +23,7 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
     }
 
     override fun requestUploadImg(image: Bitmap) {
-        UserRepositoryImpl.uploadStorage(image) {
+        CertificateRepositoryImpl.uploadStorage(image) {
                 isSuccess ->
             if (isSuccess) {
                 view.showToast("이미지 업로드 성공")

@@ -2,7 +2,7 @@ package com.unimind.unithing.Presenter
 
 import android.util.Patterns
 import com.unimind.unithing.Contract.SignUserContract
-import com.unimind.unithing.Repository.SignUserRemoteDataSource.SignUserRepositoryImpl
+import com.unimind.unithing.Repository.RemoteDataSource.SignUserRepositoryImpl
 
 class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Presenter {
 
