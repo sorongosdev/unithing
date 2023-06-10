@@ -1,44 +1,23 @@
 package com.unimind.unithing
 
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
-import com.esafirm.imagepicker.features.IpCons.RC_IMAGE_PICKER
-import com.esafirm.imagepicker.features.ReturnMode
-import com.esafirm.imagepicker.features.createImagePickerIntent
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.normal.TedPermission
-import com.unimind.unithing.Contract.UserContract
+import com.unimind.unithing.Contract.CertificateContract
 import com.unimind.unithing.Presenter.UserPresenter
 import com.unimind.unithing.databinding.ActivityCertificationBinding
-import java.io.IOException
 
-class CertificationActivity : AppCompatActivity(), UserContract.View {
+class CertificationActivity : AppCompatActivity(), CertificateContract.View {
     private lateinit var binding: ActivityCertificationBinding
     private lateinit var presenter: UserPresenter
 

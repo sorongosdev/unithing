@@ -1,5 +1,5 @@
 package com.unimind.unithing.Data
 
-data class MajorCERT(
+data class Certificate(
     val string: String? = null
 )
