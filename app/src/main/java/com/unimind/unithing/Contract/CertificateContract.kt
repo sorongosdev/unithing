@@ -24,6 +24,5 @@ interface CertificateContract {
     interface CertificateRepository {
         fun createCertificateDB(callback : (Boolean) -> Unit)
         fun uploadStorage(image: Bitmap, callback : (Boolean) -> Unit)
-
     }
 }
