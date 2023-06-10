@@ -33,13 +33,5 @@
             app:menu="@menu/bottom_navigation_menu"
             tools:ignore="MissingConstraints" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toTopOf="@id/activity_main_bnv"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,12 +14,14 @@
             tools:listitem="@layout/item_feed" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fragment_home_floating_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/baseline_add_24"
+            android:visibility="invisible"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
