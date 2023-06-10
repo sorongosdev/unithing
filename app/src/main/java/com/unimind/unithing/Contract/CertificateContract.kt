@@ -1,11 +1,9 @@
 package com.unimind.unithing.Contract
 
 
-import android.content.ContentResolver
-import android.content.Context
 import android.graphics.Bitmap
 
-interface UserContract {
+interface CertificateContract {
 
     interface View {
         fun showToast(message: String)
@@ -21,5 +19,11 @@ interface UserContract {
         fun requestUploadImg(image: Bitmap)
         fun recognizeFromImage(img: Bitmap)
         fun requestPermissions(type: String)
+    }
+
+    interface CertificateRepository {
+        fun createCertificateDB(callback : (Boolean) -> Unit)
+        fun uploadStorage(image: Bitmap, callback : (Boolean) -> Unit)
+
     }
 }

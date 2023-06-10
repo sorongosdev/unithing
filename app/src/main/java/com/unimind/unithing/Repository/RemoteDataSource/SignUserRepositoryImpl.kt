@@ -1,18 +1,16 @@
-package com.unimind.unithing.Repository.SignUserRemoteDataSource
+package com.unimind.unithing.Repository.RemoteDataSource
 
-import android.app.Application
-import android.util.Log
-import android.util.Patterns
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.unimind.unithing.Contract.SignUserContract
 import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.User
 import com.unimind.unithing.R
 import com.unimind.unithing.StringResource
 
 // 싱글톤 객체
-object SignUserRepositoryImpl : SignUserRepository {
+object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
 
     private val firebaseAuth = Firebase.auth
 
