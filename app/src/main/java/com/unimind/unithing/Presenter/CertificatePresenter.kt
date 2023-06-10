@@ -11,7 +11,7 @@ import com.unimind.unithing.Contract.CertificateContract
 import com.unimind.unithing.Repository.RemoteDataSource.CertificateRepositoryImpl
 import java.io.IOException
 
-class UserPresenter(val view: CertificateContract.View) : CertificateContract.Presenter {
+class CertificatePresenter(val view: CertificateContract.View) : CertificateContract.Presenter {
     override fun requestCreateDB() {
         CertificateRepositoryImpl.createCertificateDB { isSuccess ->
             if (isSuccess) {

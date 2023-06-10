@@ -14,12 +14,12 @@ import com.esafirm.imagepicker.features.ImagePickerMode
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.unimind.unithing.Contract.CertificateContract
-import com.unimind.unithing.Presenter.UserPresenter
+import com.unimind.unithing.Presenter.CertificatePresenter
 import com.unimind.unithing.databinding.ActivityCertificationBinding
 
 class CertificationActivity : AppCompatActivity(), CertificateContract.View {
     private lateinit var binding: ActivityCertificationBinding
-    private lateinit var presenter: UserPresenter
+    private lateinit var presenter: CertificatePresenter
 
     // 카메라 호출을 위한 상수
     private val REQUEST_IMAGE_CAPTURE = 1
@@ -54,7 +54,7 @@ class CertificationActivity : AppCompatActivity(), CertificateContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_certification)
-        presenter = UserPresenter(this)
+        presenter = CertificatePresenter(this)
 
         binding.activityCertificationBtn1.setOnClickListener {
             presenter.requestCreateDB()
