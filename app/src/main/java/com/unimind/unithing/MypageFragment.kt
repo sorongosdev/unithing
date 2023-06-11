@@ -17,9 +17,7 @@ class MypageFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage, container, false)
 
-        binding.fragmentMypageEditInfo.setOnClickListener{
-
-        }
+        
 
         return binding.root
     }
