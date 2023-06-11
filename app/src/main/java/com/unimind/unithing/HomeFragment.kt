@@ -27,6 +27,7 @@ class HomeFragment : Fragment(), AuthorityContract.View{
 
 //        binding.fragmentHomeFloatingBtn.isVisible =
         presenter = AuthorityPresenter(this)
+        //생명주기에 따른 코드 이동 필요, 현재 프래그먼트가 등장할 때마다 뷰가 업데이트 되고 있음
         presenter.showAuthority()
         return binding.root
     }
