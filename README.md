@@ -10,3 +10,7 @@
 - 
 ## 와이어프레임-피그마
 - https://www.figma.com/file/Z4ndiqsYfg9lsECWBC9b0x/OK?type=design&node-id=0%3A1&t=5CEQ2XLFKMw9iz0S-1
+
+## 파이어스토어 보안규칙
+- ![img.png](img.png)
+- 추후 서버 개발 후 변동 가능 (토큰 관련)
