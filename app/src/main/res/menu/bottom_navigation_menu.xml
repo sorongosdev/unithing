@@ -18,4 +18,16 @@
         android:enabled="true"
         android:title="알림"
         android:icon="@drawable/baseline_notifications_24"/>
+
+    <item
+        android:id="@+id/bookmarkFragment"
+        android:enabled="true"
+        android:title="저장"
+        android:icon="@drawable/baseline_bookmark_border_24"/>
+
+    <item
+        android:id="@+id/mypageFragment"
+        android:enabled="true"
+        android:title="마이페이지"
+        android:icon="@drawable/round_person_24"/>
 </menu>

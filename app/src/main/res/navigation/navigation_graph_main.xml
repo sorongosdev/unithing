@@ -28,5 +28,20 @@
         tools:layout="@layout/fragment_notification"
         >
     </fragment>
+    <fragment
+        android:label="mypageFragment"
+        android:id="@+id/mypageFragment"
+        android:name="com.unimind.unithing.MypageFragment"
+        tools:layout="@layout/fragment_mypage"
+        >
+    </fragment>
+    <fragment
+        android:label="bookmarkFragment"
+        android:id="@+id/bookmarkFragment"
+        android:name="com.unimind.unithing.BookmarkFragment"
+        tools:layout="@layout/fragment_bookmark"
+        >
+    </fragment>
+
 
 </navigation>
