@@ -12,7 +12,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_person_24"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/item_feed_nickname_tv"
@@ -48,6 +48,7 @@
         app:constraint_referenced_ids=
             "item_feed_like_iv,
             item_feed_comment_iv,
+            item_feed_share_iv,
             item_feed_bookmark_iv"
         />
     <ImageView
@@ -67,7 +68,8 @@
         android:id="@+id/item_feed_comment_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/baseline_comment_24"/>
+        android:src="@drawable/baseline_comment_24"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/item_feed_comment_tv"
         android:layout_width="wrap_content"
@@ -80,6 +82,13 @@
         android:id="@+id/item_feed_bookmark_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/baseline_bookmark_border_24"/>
+        android:src="@drawable/baseline_bookmark_border_24"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/item_feed_share_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/baseline_share_24"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
