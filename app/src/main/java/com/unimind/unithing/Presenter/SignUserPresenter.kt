@@ -2,6 +2,7 @@ package com.unimind.unithing.Presenter
 
 import android.util.Patterns
 import com.unimind.unithing.Contract.SignUserContract
+import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepostiroyImpl
 import com.unimind.unithing.Repository.RemoteDataSource.SignUserRepositoryImpl
 
 class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Presenter {
@@ -26,6 +27,8 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
                 view.showToast("로그인 실패 ${errorMsg}")
             }
         }
+        SignUserRepositoryImpl.getUserInfo()
+        UserInfoRepostiroyImpl.saveUserInfo()
     }
 
     /**뷰를 띄워줌*/

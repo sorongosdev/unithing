@@ -1,5 +1,6 @@
 package com.unimind.unithing.Repository.RemoteDataSource
 
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -62,8 +63,19 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
             }
     }
 
+    /**로그인시 회원정보를 로컬에 저장해두기 위해 받아옴*/
+    override fun getUserInfo(){
+        userUid = Firebase.auth.uid.toString()
+        val docRef = firestoreUserDB.document(userUid)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                Log.d("getUserInfo","${document.id} : ${document.data}")
+            }
+    }
+
     private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {
         val user = User(email = email, type = type, uid = userUid, authorized = false)
+        //TODO : 여기에 로컬에 저장하는 부분? ㄴㄴ 로그인시 저장해야함.
 
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {

@@ -1,5 +1,6 @@
 package com.unimind.unithing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.unimind.unithing.Contract.AuthorityContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
-import com.unimind.unithing.Presenter.CertificatePresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), AuthorityContract.View{
@@ -28,6 +28,11 @@ class HomeFragment : Fragment(), AuthorityContract.View{
         presenter = AuthorityPresenter(this)
         //생명주기에 따른 코드 이동 필요, 현재 프래그먼트가 등장할 때마다 뷰가 업데이트 되고 있음
         presenter.showAuthority()
+
+        binding.fragmentHomeFloatingBtn.setOnClickListener {
+            nextActivity()
+        }
+
         return binding.root
     }
 
@@ -36,7 +41,9 @@ class HomeFragment : Fragment(), AuthorityContract.View{
     }
 
     override fun nextActivity() {
-        TODO("Not yet implemented")
+//        activity?.finish()
+        val intent = Intent(activity, PostActivity::class.java)
+        startActivity(intent)
     }
 
     override fun isAuthorized() {
