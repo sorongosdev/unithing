@@ -27,7 +27,6 @@
         android:src="@drawable/baseline_image_24"
         app:layout_constraintBottom_toTopOf="@id/activity_write_upload_btn"
          />
-
     <Button
         android:id="@+id/activity_write_upload_btn"
         android:layout_width="0dp"
