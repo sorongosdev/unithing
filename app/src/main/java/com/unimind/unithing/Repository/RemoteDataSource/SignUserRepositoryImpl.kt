@@ -75,7 +75,6 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
 
     private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {
         val user = User(email = email, type = type, uid = userUid, authorized = false)
-        //TODO : 여기에 로컬에 저장하는 부분? ㄴㄴ 로그인시 저장해야함.
 
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
