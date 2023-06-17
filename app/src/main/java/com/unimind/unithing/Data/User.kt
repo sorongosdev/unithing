@@ -1,12 +1,15 @@
 package com.unimind.unithing.Data
 
+import android.os.Parcelable
 import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "user")
 data class User (
-    @PrimaryKey val uid: String = "",
+    @PrimaryKey(autoGenerate = false) val uid: String = "",
     val email: String? = null,
     val nickname: String? = null,
     val major: String? = null,
@@ -18,4 +21,4 @@ data class User (
     val myComment: String? = null, // 향후 컬렉션 형식으로 변경해야 함
     val myPost: String? = null, // 향후 컬렉션 형식으로 변경해야 함
     val myWishPost: String? = null // 향후 컬렉션 형식으로 변경해야 함
-)
+): Parcelable
