@@ -1,9 +1,12 @@
 package com.unimind.unithing.Data
 
 import android.provider.ContactsContract.CommonDataKinds.Email
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "user")
 data class User (
-    val uid: String? = null,
+    @PrimaryKey val uid: String = "",
     val email: String? = null,
     val nickname: String? = null,
     val major: String? = null,
