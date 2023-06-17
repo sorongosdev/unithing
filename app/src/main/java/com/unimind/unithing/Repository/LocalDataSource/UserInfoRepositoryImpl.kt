@@ -12,5 +12,8 @@ object UserInfoRepositoryImpl {
     fun saveUserInfo(user: User) {
         Log.d("saveUserInfo","${user}")
         //TODO : Room에 저장
+        Thread{
+            AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.insert(user)
+        }.start()
     }
 }
