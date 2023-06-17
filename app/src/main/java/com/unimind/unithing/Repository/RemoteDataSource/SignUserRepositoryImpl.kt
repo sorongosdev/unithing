@@ -76,14 +76,15 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
     }
 
     /**로그인시 회원정보를 로컬에 저장해두기 위해 받아옴*/
-    override fun getUserInfo() {
+    override fun getUserInfo(user: User, callback: (User) -> Unit) {
         userUid = Firebase.auth.uid.toString()
         val docRef = firestoreUserDB.document(userUid)
-        val user = docRef.get()
+        docRef.get()
             .addOnSuccessListener { document ->
                 Log.d("getUserInfo", "${document.id} : ${document.data}")
                 val userInfo = document.toObject(User::class.java)
                 Log.d("userInfo", "$userInfo")
+                callback(userInfo!!)
             }
 
     }
