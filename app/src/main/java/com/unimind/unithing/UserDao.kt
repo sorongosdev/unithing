@@ -7,12 +7,15 @@ import com.unimind.unithing.Data.User
 @Dao
 interface UserDao {
 
+    @Query("SELECT * from user")
+    fun getAllUser() : List<User>
+
     @Insert
-    fun insert(word: User)
+    fun insert(user: User)
 
     @Delete
-    fun delete(word: User)
+    fun delete(user: User)
 
     @Update
-    fun update(word: User)
+    fun update(user: User)
 }

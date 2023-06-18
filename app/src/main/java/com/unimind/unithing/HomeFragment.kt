@@ -15,7 +15,6 @@ import com.unimind.unithing.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(), AuthorityContract.View{
     lateinit var binding: FragmentHomeBinding
-    private lateinit var presenter: AuthorityPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +24,7 @@ class HomeFragment : Fragment(), AuthorityContract.View{
 
         //TODO : authorized가 false면 글쓰기 버튼이 보이지 않게, true면 보이게
 
-        presenter = AuthorityPresenter(this)
-        //생명주기에 따른 코드 이동 필요, 현재 프래그먼트가 등장할 때마다 뷰가 업데이트 되고 있음
-        presenter.showAuthority()
+
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
