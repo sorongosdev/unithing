@@ -85,8 +85,8 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
                 val userInfo = document.toObject(User::class.java)
                 Log.d("userInfo", "$userInfo")
                 callback(userInfo!!)
+                UserInfoRepositoryImpl.currentUser = userInfo
             }
-
     }
 
     private fun createUserDB(email: String, type: String, callback: (Boolean) -> Unit) {

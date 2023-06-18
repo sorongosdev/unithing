@@ -2,6 +2,7 @@ package com.unimind.unithing
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -9,12 +10,14 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
+import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() , AuthorityContract.View {
+class MainActivity : AppCompatActivity() , UserInfoContract.View {
     private lateinit var binding : ActivityMainBinding
-    private lateinit var presenter: AuthorityPresenter
+    private lateinit var presenter: UserInfoPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +27,7 @@ class MainActivity : AppCompatActivity() , AuthorityContract.View {
         val navController = navHostFragment.findNavController()
         binding.activityMainBnv.setupWithNavController(navController)
 
-        presenter = AuthorityPresenter(this)
-        presenter.showAuthority()
+        Log.d("Main","MainActivity")
     }
 
     override fun showToast(message: String) {

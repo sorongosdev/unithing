@@ -9,12 +9,14 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
+import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentMypageBinding
 
-class MypageFragment : Fragment(), AuthorityContract.View {
+class MypageFragment : Fragment(), UserInfoContract.View {
     private lateinit var binding : FragmentMypageBinding
-    private lateinit var presenter: AuthorityPresenter
+    private lateinit var presenter: UserInfoPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +25,8 @@ class MypageFragment : Fragment(), AuthorityContract.View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage, container, false)
 
         //presenter
-        presenter = AuthorityPresenter(this)
-        presenter.showAuthority()
+        presenter = UserInfoPresenter(this)
+        presenter.getAuthority()
         return binding.root
     }
 

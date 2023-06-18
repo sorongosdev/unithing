@@ -12,12 +12,12 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignUp(userEmail, userPassword, userType) {
             isSuccess, errorMsg ->
             if (isSuccess) {
-                view.nextActivity()
                 //user정보를 firestore에서 받아와 로컬에 저장
                 val user = User()
                 SignUserRepositoryImpl.getUserInfo(user){
                     UserInfoRepositoryImpl.insertUserInfo(it)
                 }
+                view.nextActivity()
             } else {
                 view.showToast("회원가입 실패 ${errorMsg}")
             }
@@ -28,11 +28,11 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignIn(userEmail, userPassword) {
                 isSuccess, errorMsg ->
             if (isSuccess) {
-                view.nextActivity()
                 val user = User()
                 SignUserRepositoryImpl.getUserInfo(user){
                     UserInfoRepositoryImpl.insertUserInfo(it)
                 }
+                view.nextActivity()
             } else {
                 view.showToast("로그인 실패 ${errorMsg}")
             }

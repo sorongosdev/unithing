@@ -2,6 +2,7 @@ package com.unimind.unithing
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,15 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
+import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment(), AuthorityContract.View{
+class HomeFragment : Fragment(), UserInfoContract.View{
     lateinit var binding: FragmentHomeBinding
+//    private lateinit var presenter: AuthorityPresenter
+    private lateinit var presenter: UserInfoPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +29,10 @@ class HomeFragment : Fragment(), AuthorityContract.View{
 
         //TODO : authorized가 false면 글쓰기 버튼이 보이지 않게, true면 보이게
 
-
+        //presenter
+        Log.d("homeFragment","homeFragment")
+        presenter = UserInfoPresenter(this)
+        presenter.getAuthority()
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()

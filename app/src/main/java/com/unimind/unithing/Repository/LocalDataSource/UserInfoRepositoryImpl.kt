@@ -15,6 +15,7 @@ object UserInfoRepositoryImpl : UserInfoContract.UserInfoRepository{
 
     /**로그인/회원가입될 때 회원정보를 업데이트, 이후 닉네임 변경, 과 변경 등등 변경 관련 함수 생기면 리네이밍 필요*/
     override fun insertUserInfo(user: User){
+        Log.d("currentUser","$user")
         Thread {
             //로컬에 회원정보가 없다면 로그인시 추가해준다
             try{
@@ -24,21 +25,6 @@ object UserInfoRepositoryImpl : UserInfoContract.UserInfoRepository{
             catch(e: Exception){
                 AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.update(user)
             }
-            Log.d("updateUserInfo","$user")
         }.start()
     }
-
-    /**room db에서 현재 current user을 찾음*/
-    override fun findUser(userUid: String) {
-        Thread {
-            val list = AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.getAllUser()
-            Log.d("list", "$list")
-            //TODO : uid로 현재 사용자 찾기
-            list?.forEach { user ->
-                if (user.uid == userUid) currentUser = user
-                Log.d("currentUser","$currentUser")
-            }
-        }.start()
-    }
-
 }
