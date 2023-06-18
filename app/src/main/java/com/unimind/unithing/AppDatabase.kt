@@ -1,6 +1,7 @@
 package com.unimind.unithing
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -20,14 +21,15 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class.java) {
                     //초기화 해줘야함, 데이터베이스 빌더를 통해서
                     INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
+                        context,
                         AppDatabase::class.java,
                         "user-database.db" //database name
                     ).build() //만들어짐
                 }
-
+                Log.d("AppDatabase", "getInstance 호출됨")
             }
             return INSTANCE
+            Log.d("AppDatabase", "인스턴스 반환됨")
         }
     }
 }

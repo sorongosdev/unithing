@@ -1,5 +1,6 @@
 package com.unimind.unithing.Presenter
 
+import android.util.Log
 import android.util.Patterns
 import com.unimind.unithing.Contract.SignUserContract
 import com.unimind.unithing.Data.User
@@ -30,6 +31,7 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
             if (isSuccess) {
                 val user = User()
                 SignUserRepositoryImpl.getUserInfo(user){
+                    Log.d("Appdatabase", "insertUserInfo 호출")
                     UserInfoRepositoryImpl.insertUserInfo(it)
                 }
                 view.nextActivity()

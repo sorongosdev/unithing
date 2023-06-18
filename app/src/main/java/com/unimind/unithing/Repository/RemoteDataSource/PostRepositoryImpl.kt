@@ -1,5 +1,6 @@
 package com.unimind.unithing.Repository.RemoteDataSource
 
+import android.os.Looper
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -13,6 +14,7 @@ import com.unimind.unithing.Data.Post
 import com.unimind.unithing.R
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.StringResource
+import java.util.logging.Handler
 
 object PostRepositoryImpl : PostContract.PostRepository {
 
@@ -42,7 +44,14 @@ object PostRepositoryImpl : PostContract.PostRepository {
     }
 
     override fun getAllPost() {
-        firestorePostDB = firestoreBoardDB.document(UserInfoRepositoryImpl.currentUser?.major!!).collection("posts")
+        // major가 null이면 null 반환. 현재 ghkdud4@naver.com 의 major 필드값은 null이니 type으로 테스트
+        Log.d("getAllPost", UserInfoRepositoryImpl.currentUser?.type!!)
+//        android.os.Handler(Looper.getMainLooper()).postDelayed({
+//            Log.d("getAllPost", UserInfoRepositoryImpl.currentUser?.type!!)
+//        }, 3000)
+
+
+ //       firestorePostDB = firestoreBoardDB.document(UserInfoRepositoryImpl.currentUser?.major!!).collection("posts")
 
         Log.d("getAllPost","test")
 //        firestorePostDB

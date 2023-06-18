@@ -1,6 +1,11 @@
 package com.unimind.unithing
 
-import androidx.room.*
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.unimind.unithing.Data.User
 
 /**유저정보에 관한 Data Access Object*/

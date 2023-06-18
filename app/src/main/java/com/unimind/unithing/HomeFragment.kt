@@ -16,6 +16,7 @@ import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
 import com.unimind.unithing.Presenter.PostPresenter
+import com.unimind.unithing.Presenter.SignUserPresenter
 import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
 
@@ -39,11 +40,16 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View{
         postPresenter = PostPresenter(this)
         Log.d("homeFragment","presenter")
 
+        RxEventBus.listen(RxEvents.EventSetRoom::class.java).subscribe {
+            postPresenter.showPost()
+        }
+
+
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
         }
 
-        postPresenter.showPost()
+  //
 
 //        binding.fragmentHomeRv.apply {
 //            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -9,6 +9,8 @@ import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.User
 import com.unimind.unithing.R
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
+import com.unimind.unithing.RxEventBus
+import com.unimind.unithing.RxEvents
 import com.unimind.unithing.StringResource
 
 // 싱글톤 객체
@@ -85,7 +87,10 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
                 val userInfo = document.toObject(User::class.java)
                 Log.d("userInfo", "$userInfo")
                 callback(userInfo!!)
+
                 UserInfoRepositoryImpl.currentUser = userInfo
+
+                RxEventBus.publish(RxEvents.EventSetRoom(true))
             }
     }
 
