@@ -29,4 +29,8 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter{
         }
     }
 
+    override fun showPost() {
+        PostRepositoryImpl.getAllPost()
+    }
+
 }

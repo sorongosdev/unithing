@@ -9,8 +9,10 @@ interface PostContract {
     }
     interface Presenter{
         fun post(title: String, content: String)
+        fun showPost()
     }
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)
+        fun getAllPost()
     }
 }

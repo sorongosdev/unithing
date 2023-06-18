@@ -10,16 +10,20 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
+import com.unimind.unithing.Presenter.PostPresenter
 import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment(), UserInfoContract.View{
+class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View{
     lateinit var binding: FragmentHomeBinding
 //    private lateinit var presenter: AuthorityPresenter
-    private lateinit var presenter: UserInfoPresenter
+    private lateinit var userInfoPresenter: UserInfoPresenter
+    private lateinit var postPresenter: PostPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +35,20 @@ class HomeFragment : Fragment(), UserInfoContract.View{
 
         //presenter
         Log.d("homeFragment","homeFragment")
-        presenter = UserInfoPresenter(this)
+        userInfoPresenter = UserInfoPresenter(this)
+        postPresenter = PostPresenter(this)
         Log.d("homeFragment","presenter")
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
         }
+
+        postPresenter.showPost()
+
+//        binding.fragmentHomeRv.apply {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//            adapter = HomeAdapter(emptyList())
+//        }
 
         return binding.root
     }
