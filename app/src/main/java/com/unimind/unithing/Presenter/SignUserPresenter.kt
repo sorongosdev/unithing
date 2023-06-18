@@ -31,7 +31,7 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
                 view.nextActivity()
                 val user = User()
                 SignUserRepositoryImpl.getUserInfo(user){
-                    UserInfoRepositoryImpl.updateUserInfo(it)
+                    UserInfoRepositoryImpl.insertUserInfo(it)
                 }
             } else {
                 view.showToast("로그인 실패 ${errorMsg}")

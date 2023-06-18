@@ -14,7 +14,6 @@ interface UserInfoContract {
     }
     interface UserInfoRepository{
         fun insertUserInfo(user: User)
-        fun updateUserInfo(user: User)
         fun findUser(userUid: String)
     }
 }

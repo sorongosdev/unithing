@@ -13,17 +13,17 @@ import com.unimind.unithing.Data.User
 object UserInfoRepositoryImpl : UserInfoContract.UserInfoRepository{
     lateinit var currentUser: User
 
-    /**로컬에 유저정보 저장, 회원가입 시 한번만 실행*/
-    override fun insertUserInfo(user: User) {
+    /**로그인/회원가입될 때 회원정보를 업데이트, 이후 닉네임 변경, 과 변경 등등 변경 관련 함수 생기면 리네이밍 필요*/
+    override fun insertUserInfo(user: User){
         Thread {
-            AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.insert(user)
-        }.start()
-    }
-
-    /**로그인될 때 회원정보를 업데이트, 이후 닉네임 변경, 과 변경 등등 변경 관련 함수 생기면 리네이밍 필요*/
-    override fun updateUserInfo(user: User){
-        Thread {
-            AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.update(user)
+            //로컬에 회원정보가 없다면 로그인시 추가해준다
+            try{
+                AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.insert(user)
+            }
+            //로컬에 회원정보가 있으면 정보를 다시 받아와 업데이트 해줌
+            catch(e: Exception){
+                AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.update(user)
+            }
             Log.d("updateUserInfo","$user")
         }.start()
     }
