@@ -32,7 +32,6 @@ class HomeFragment : Fragment(), UserInfoContract.View{
         //presenter
         Log.d("homeFragment","homeFragment")
         presenter = UserInfoPresenter(this)
-        presenter.getAuthority()
         Log.d("homeFragment","presenter")
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
