@@ -22,7 +22,7 @@
                 android:id="@+id/fragment_signin_email_tiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ghkdud4@naver.com"
+                android:text="student@test.com"
                 android:hint="이메일 입력" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 입력"
                 android:longClickable="false"
-                android:text="ghkdud12"
+                android:text="12345678"
                 android:inputType="textPassword"
                 />
 

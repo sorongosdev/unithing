@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentSnapshot
+import com.unimind.unithing.Data.Post
 
-class HomeAdapter (var itemList: List<DocumentSnapshot>):
+class HomeAdapter (var itemList: MutableList<Post>):
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -16,9 +17,9 @@ class HomeAdapter (var itemList: List<DocumentSnapshot>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nickname.text = itemList[position].getString("nickname")
-        holder.title.text = itemList[position].getString("title")
-        holder.content.text = itemList[position].getString("content")
+        holder.nickname.text = itemList[position].nickname
+        holder.title.text = itemList[position].title
+        holder.content.text = itemList[position].content
     }
 
     override fun getItemCount(): Int {
@@ -28,5 +29,9 @@ class HomeAdapter (var itemList: List<DocumentSnapshot>):
         val nickname: TextView = view.findViewById(R.id.item_feed_nickname_tv)
         val title: TextView = view.findViewById(R.id.item_feed_title_tv)
         val content: TextView = view.findViewById(R.id.item_feed_content_tv)
+    }
+    fun setData(new : MutableList<Post>){
+        itemList = new
+        notifyDataSetChanged()
     }
 }

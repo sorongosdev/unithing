@@ -1,5 +1,7 @@
 package com.unimind.unithing.Contract
 
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.unimind.unithing.Data.Post
 
 interface PostContract {
@@ -9,10 +11,11 @@ interface PostContract {
     }
     interface Presenter{
         fun post(title: String, content: String)
+//        fun showPost() : MutableList<Post>
         fun showPost()
     }
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)
-        fun getAllPost()
+        fun getAllPost(callback: (MutableList<DocumentSnapshot>) -> Unit)
     }
 }

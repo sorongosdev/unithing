@@ -27,6 +27,7 @@ object UserInfoRepositoryImpl : UserInfoContract.UserInfoRepository{
                     AppDatabase.getInstance(CustomApplication.ctx!!)?.userDao()?.update(user)
                 }
             }
+
         ).start()
     }
 }

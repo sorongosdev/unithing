@@ -6,7 +6,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 
-object RxEventBus {
+object RxEventBus2 {
 
     private val publisher =  ReplaySubject.create<Any>()
 
@@ -17,7 +17,7 @@ object RxEventBus {
     fun <T> listen(eventType: Class<T>): Observable<T> = publisher.ofType(eventType)
 }
 
-class RxEvents {
+class RxEvents2 {
 
     class EventSetRoom(val isSuccess: Boolean)
     class EventGoToStore()
