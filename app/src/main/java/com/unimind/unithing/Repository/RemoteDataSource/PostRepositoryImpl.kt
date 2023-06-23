@@ -6,6 +6,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -57,12 +58,12 @@ object PostRepositoryImpl : PostContract.PostRepository {
         firestorePostDB = firestoreBoardDB.document(UserInfoRepositoryImpl.currentUser?.major!!).collection("post")
 
         firestorePostDB
+            //최신 데이터가 상단에 보이도록 정렬
+            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {document->
                 Log.d("getAllPost","${document.documents}")
-
                 callback(document.documents)
-
             }
     }
 

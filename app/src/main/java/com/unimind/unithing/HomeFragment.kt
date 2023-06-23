@@ -51,19 +51,13 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
         initHomeRv()
 
         RxEventBus.listen(RxEvents.EventSetRoom::class.java).subscribe {
-            //observable init
             postPresenter.showPost()
-//            postPresenter.showPost()
-
-//            Log.d("homePosts","$posts")
         }
+
+        //
         RxEventBus2.listen(RxEvents2.EventSetRoom::class.java).subscribe {
-            //observable init
-            Log.d("homeEventBus2","subscribe RxEventBus2")
             (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
-                //TODO : 이중으로 보여짐. 새로 받아온 것만 업데이트 해야함
-            }
-//            postPresenter.showPost()
+        }
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
