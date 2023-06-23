@@ -54,7 +54,7 @@
         android:id="@+id/item_feed_flow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/item_feed_content_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:constraint_referenced_ids=
             "item_feed_like_iv,
             item_feed_comment_iv,
