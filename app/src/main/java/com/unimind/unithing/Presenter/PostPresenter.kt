@@ -48,7 +48,7 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             Log.d("showPost", "$result")
             result.forEach {
                 document.add(it.toObject(Post::class.java)!!)
-                RxEventBus2.publish(RxEvents2.EventSetRoom(true))
+                RxEventBus.publish(RxEvents.EventSetRoom2(true))
             }
         }
 //        return document

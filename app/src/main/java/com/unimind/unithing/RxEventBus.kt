@@ -20,6 +20,7 @@ object RxEventBus {
 class RxEvents {
 
     class EventSetRoom(val isSuccess: Boolean)
+    class EventSetRoom2(val isSuccess: Boolean)
     class EventGoToStore()
 }
 

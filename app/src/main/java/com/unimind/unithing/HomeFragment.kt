@@ -55,22 +55,13 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
         }
 
         //
-        RxEventBus2.listen(RxEvents2.EventSetRoom::class.java).subscribe {
+        RxEventBus.listen(RxEvents.EventSetRoom2::class.java).subscribe {
             (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
         }
 
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
         }
-
-
-
-        //
-
-//        binding.fragmentHomeRv.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//            adapter = HomeAdapter(emptyList())
-//        }
 
         return binding.root
     }
