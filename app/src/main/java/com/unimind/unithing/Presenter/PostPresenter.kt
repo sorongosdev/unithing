@@ -9,17 +9,9 @@ import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
-import com.unimind.unithing.Repository.RemoteDataSource.AuthorityRepositoryImpl
 import com.unimind.unithing.Repository.RemoteDataSource.PostRepositoryImpl
 import com.unimind.unithing.RxEventBus
-import com.unimind.unithing.RxEventBus2
 import com.unimind.unithing.RxEvents
-import com.unimind.unithing.RxEvents2
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.toObservable
-import java.time.LocalDate
 
 /**글을 게시했을 때 로직*/
 class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
