@@ -8,6 +8,9 @@ import com.unimind.unithing.Contract.SignUserContract
 import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.User
 import com.unimind.unithing.R
+import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
+import com.unimind.unithing.RxEventBus
+import com.unimind.unithing.RxEvents
 import com.unimind.unithing.StringResource
 
 // 싱글톤 객체
@@ -15,8 +18,19 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
 
     private val firebaseAuth = Firebase.auth
 
-    private val firestoreUserDB = FirebaseFirestore.getInstance().collection(StringResource.getStringResource(CustomApplication.ctx, R.string.db_user_account))
-    private val firestoreCertDB = FirebaseFirestore.getInstance().collection(StringResource.getStringResource(CustomApplication.ctx, R.string.db_major_certificate))
+    private val firestoreUserDB = FirebaseFirestore.getInstance().collection(
+        StringResource.getStringResource(
+            CustomApplication.ctx,
+            R.string.db_user_account
+        )
+    )
+    private val firestoreCertDB = FirebaseFirestore.getInstance().collection(
+        StringResource.getStringResource(
+            CustomApplication.ctx,
+            R.string.db_major_certificate
+        )
+    )
+
     //private val userUid = firebaseAuth.uid.toString()
     private lateinit var userUid: String
 
@@ -64,12 +78,19 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
     }
 
     /**로그인시 회원정보를 로컬에 저장해두기 위해 받아옴*/
-    override fun getUserInfo(){
+    override fun getUserInfo(user: User, callback: (User) -> Unit) {
         userUid = Firebase.auth.uid.toString()
         val docRef = firestoreUserDB.document(userUid)
         docRef.get()
             .addOnSuccessListener { document ->
-                Log.d("getUserInfo","${document.id} : ${document.data}")
+                Log.d("getUserInfo", "${document.id} : ${document.data}")
+                val userInfo = document.toObject(User::class.java)
+                Log.d("userInfo", "$userInfo")
+                callback(userInfo!!)
+
+                UserInfoRepositoryImpl.currentUser = userInfo
+
+                RxEventBus.publish(RxEvents.EventSetRoom(true))
             }
     }
 
@@ -79,6 +100,7 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
                 callback(true)
+//                UserInfoRepositoryImpl.saveUserInfo()
             }.addOnFailureListener {
                 callback(false)
             }

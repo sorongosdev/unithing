@@ -9,26 +9,29 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.AuthorityPresenter
+import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentMypageBinding
 
-class MypageFragment : Fragment(), AuthorityContract.View {
+class MypageFragment : Fragment(), UserInfoContract.View {
     private lateinit var binding : FragmentMypageBinding
-    private lateinit var presenter: AuthorityPresenter
+    private lateinit var presenter: UserInfoPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage, container, false)
-        presenter = AuthorityPresenter(this)
-        //생명주기에 따른 코드 이동 필요, 현재 프래그먼트가 등장할 때마다 뷰가 업데이트 되고 있음
-        presenter.showAuthority()
+
+        //presenter
+        presenter = UserInfoPresenter(this)
+        presenter.getAuthority()
         return binding.root
     }
 
     override fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun nextActivity() {

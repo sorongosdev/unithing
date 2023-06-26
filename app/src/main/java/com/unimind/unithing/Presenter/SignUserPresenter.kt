@@ -1,7 +1,9 @@
 package com.unimind.unithing.Presenter
 
+import android.util.Log
 import android.util.Patterns
 import com.unimind.unithing.Contract.SignUserContract
+import com.unimind.unithing.Data.User
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.Repository.RemoteDataSource.SignUserRepositoryImpl
 
@@ -11,6 +13,11 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignUp(userEmail, userPassword, userType) {
             isSuccess, errorMsg ->
             if (isSuccess) {
+                //user정보를 firestore에서 받아와 로컬에 저장
+                val user = User()
+                SignUserRepositoryImpl.getUserInfo(user){
+                    UserInfoRepositoryImpl.insertUserInfo(it)
+                }
                 view.nextActivity()
             } else {
                 view.showToast("회원가입 실패 ${errorMsg}")
@@ -22,13 +29,16 @@ class SignUserPresenter(val view: SignUserContract.View): SignUserContract.Prese
         SignUserRepositoryImpl.requestSignIn(userEmail, userPassword) {
                 isSuccess, errorMsg ->
             if (isSuccess) {
+                val user = User()
+                SignUserRepositoryImpl.getUserInfo(user){
+                    Log.d("Appdatabase", "insertUserInfo 호출")
+                    UserInfoRepositoryImpl.insertUserInfo(it)
+                }
                 view.nextActivity()
             } else {
                 view.showToast("로그인 실패 ${errorMsg}")
             }
         }
-        SignUserRepositoryImpl.getUserInfo()
-        UserInfoRepositoryImpl.saveUserInfo()
     }
 
     /**뷰를 띄워줌*/

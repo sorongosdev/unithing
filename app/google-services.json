@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "687165076704",
+    "project_id": "ok-project-81988",
+    "storage_bucket": "ok-project-81988.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687165076704:android:125ee3a94f5a43f6194c85",
+        "android_client_info": {
+          "package_name": "com.unimind.unithing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687165076704-ntlsid7qrp30pbg6aokuv36cgostt55r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unimind.unithing",
+            "certificate_hash": "3c88dab6baf82efefa3d0f798ce9f94adcbbe5c8"
+          }
+        },
+        {
+          "client_id": "687165076704-isn21kvm6bupc16krqunhpr5m2lo0uqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgyv-jRUnKyOi6CjoH629LPQlTl5IS_gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687165076704-isn21kvm6bupc16krqunhpr5m2lo0uqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
