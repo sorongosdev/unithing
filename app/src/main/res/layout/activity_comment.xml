@@ -51,23 +51,23 @@
         />
 
     <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/activity_commen_flow"
+        android:id="@+id/activity_comment_flow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:constraint_referenced_ids=
-            "activity_commen_like_iv,
-            activity_commen_comment_iv,
-            activity_commen_share_iv,
-            activity_commen_bookmark_iv"
+            "activity_comment_like_iv,
+            activity_comment_comment_iv,
+            activity_comment_share_iv,
+            activity_comment_bookmark_iv"
         />
     <ImageView
-        android:id="@+id/activity_commen_like_iv"
+        android:id="@+id/activity_comment_like_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/baseline_volunteer_activism_24"/>
     <TextView
-        android:id="@+id/activity_commen_like_tv"
+        android:id="@+id/activity_comment_like_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/activity_commen_flow"
@@ -75,30 +75,33 @@
         app:layout_constraintStart_toEndOf="@id/activity_commen_like_iv"
         android:text="20"/>
     <ImageView
-        android:id="@+id/activity_commen_comment_iv"
+        android:id="@+id/activity_comment_comment_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/baseline_comment_24"
         tools:ignore="MissingConstraints" />
     <TextView
-        android:id="@+id/activity_commen_comment_tv"
+        android:id="@+id/activity_comment_comment_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/activity_commen_flow"
-        app:layout_constraintBottom_toBottomOf="@id/activity_commen_flow"
-        app:layout_constraintStart_toEndOf="@id/activity_commen_comment_iv"
+        app:layout_constraintTop_toTopOf="@id/activity_comment_flow"
+        app:layout_constraintBottom_toBottomOf="@id/activity_comment_flow"
+        app:layout_constraintStart_toEndOf="@id/activity_comment_comment_iv"
         android:text="20"/>
     <ImageView
-        android:id="@+id/activity_commen_bookmark_iv"
+        android:id="@+id/activity_comment_bookmark_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/baseline_bookmark_border_24"
         tools:ignore="MissingConstraints" />
     <ImageView
-        android:id="@+id/activity_commen_share_iv"
+        android:id="@+id/activity_comment_share_iv"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/baseline_share_24"
         tools:ignore="MissingConstraints" />
+    <include
+        android:id="@+id/activity_comment_bs"
+        layout="@layout/bottom_sheet_comment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
