@@ -32,6 +32,13 @@
                 android:background="@color/white"
                 android:hint="댓글을 입력해주세요" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="완료"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/activity_comment_feed_til"
+            app:layout_constraintBottom_toBottomOf="@id/activity_comment_feed_til"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
