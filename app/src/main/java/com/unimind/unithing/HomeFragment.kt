@@ -12,24 +12,22 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.DocumentSnapshot
-import com.unimind.unithing.Contract.AuthorityContract
+import com.unimind.unithing.Adapter.HomeAdapter
+import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.Contract.UserInfoContract
-import com.unimind.unithing.Data.Post
-import com.unimind.unithing.Presenter.AuthorityPresenter
 import com.unimind.unithing.Presenter.PostPresenter
-import com.unimind.unithing.Presenter.SignUserPresenter
 import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
-import org.w3c.dom.Document
 
-class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
+class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, CommentContract.View {
     lateinit var binding: FragmentHomeBinding
 
     //    private lateinit var presenter: AuthorityPresenter
     private lateinit var userInfoPresenter: UserInfoPresenter
     private lateinit var postPresenter: PostPresenter
+    private val listener = this
+
 //    private lateinit var observer: Observer
 //    private lateinit var posts: MutableList<Post>
 
@@ -50,15 +48,16 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
 
         initHomeRv()
 
+        //리스트 업데이트
         RxEventBus.listen(RxEvents.EventSetRoom::class.java).subscribe {
             postPresenter.showPost()
         }
 
-        //
         RxEventBus.listen(RxEvents.EventSetRoom2::class.java).subscribe {
             (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
         }
 
+        //글쓰기 버튼
         binding.fragmentHomeFloatingBtn.setOnClickListener {
             nextActivity()
         }
@@ -67,10 +66,10 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
     }
 
     private fun initHomeRv() {
-        Log.d("initHomeRv","init")
+        Log.d("initHomeRv", "init")
         binding.fragmentHomeRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = HomeAdapter(mutableListOf())
+            adapter = HomeAdapter(mutableListOf(), listener)
         }
     }
 
@@ -91,4 +90,14 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View {
     override fun notAuthorized() {
         binding.fragmentHomeFloatingBtn.isVisible = false
     }
+
+    override fun showCommentActivity() {
+        val intent = Intent(activity, CommentActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun updatePostView() {
+        TODO("Not yet implemented")
+    }
+
 }
