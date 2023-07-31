@@ -34,15 +34,13 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
     }
 
     //TODO : post로 형변환
-//    override fun showPost(): MutableList<Post> {
     override fun showPost() {
         PostRepositoryImpl.getAllPost() { result ->
             Log.d("showPost", "$result")
             result.forEach {
                 document.add(it.toObject(Post::class.java)!!)
-                RxEventBus.publish(RxEvents.EventSetRoom2(true))
+                RxEventBus.publish(RxEvents.PostEventSetRoom(true))
             }
         }
-//        return document
     }
 }
