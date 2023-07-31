@@ -47,19 +47,18 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         RxEventBus.listen(RxEvents.CurrentUserEventSetRoom::class.java).subscribe {
             try{
                 postPresenter.showPost()
-                Log.d("EventSetRoom","success")
+                Log.d("CurrentUserEventSetRoom","success")
             } catch(e: Exception){
-                Log.e("EventSetRoom","$e")
+                Log.e("CurrentUserEventSetRoom","$e")
             }
         }
 
-        /***/
         RxEventBus.listen(RxEvents.PostEventSetRoom::class.java).subscribe {
             try{
                 (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
-                Log.d("EventSetRoom2","success")
+                Log.d("PostEventSetRoom","success")
             } catch(e: Exception){
-                Log.e("EventSetRoom2","$e")
+                Log.e("PostEventSetRoom","$e")
             }
         }
 

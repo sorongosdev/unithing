@@ -85,12 +85,12 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
             .addOnSuccessListener { document ->
                 Log.d("getUserInfo", "${document.id} : ${document.data}")
                 val userInfo = document.toObject(User::class.java)
-                Log.d("userInfo", "$userInfo")
+                Log.d("userInfo", "$userInfo") // 실행됨
                 callback(userInfo!!)
 
                 UserInfoRepositoryImpl.currentUser = userInfo
 
-                RxEventBus.publish(RxEvents.CurrentUserEventSetRoom(true))
+                RxEventBus.publish(RxEvents.CurrentUserEventSetRoom(true)) // 인증된 전공이 없으면 npe가 뜸
             }
     }
 
