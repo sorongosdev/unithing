@@ -90,7 +90,7 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
 
                 UserInfoRepositoryImpl.currentUser = userInfo
 
-                RxEventBus.publish(RxEvents.EventSetRoom(true))
+                RxEventBus.publish(RxEvents.CurrentUserEventSetRoom(true))
             }
     }
 
@@ -100,7 +100,6 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
                 callback(true)
-//                UserInfoRepositoryImpl.saveUserInfo()
             }.addOnFailureListener {
                 callback(false)
             }
