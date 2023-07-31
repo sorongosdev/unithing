@@ -19,17 +19,14 @@ import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.PostPresenter
 import com.unimind.unithing.Presenter.UserInfoPresenter
 import com.unimind.unithing.databinding.FragmentHomeBinding
+import io.reactivex.Observable
 
 class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, CommentContract.View {
     lateinit var binding: FragmentHomeBinding
 
-    //    private lateinit var presenter: AuthorityPresenter
     private lateinit var userInfoPresenter: UserInfoPresenter
     private lateinit var postPresenter: PostPresenter
     private val listener = this
-
-//    private lateinit var observer: Observer
-//    private lateinit var posts: MutableList<Post>
 
     @SuppressLint("CheckResult")
     override fun onCreateView(
@@ -41,20 +38,29 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         //TODO : authorized가 false면 글쓰기 버튼이 보이지 않게, true면 보이게
 
         //presenter
-        Log.d("homeFragment", "homeFragment")
         userInfoPresenter = UserInfoPresenter(this)
         postPresenter = PostPresenter(this)
-        Log.d("homeFragment", "presenter")
 
         initHomeRv()
 
         //리스트 업데이트
-        RxEventBus.listen(RxEvents.EventSetRoom::class.java).subscribe {
-            postPresenter.showPost()
+        RxEventBus.listen(RxEvents.CurrentUserEventSetRoom::class.java).subscribe {
+            try{
+                postPresenter.showPost()
+                Log.d("EventSetRoom","success")
+            } catch(e: Exception){
+                Log.e("EventSetRoom","$e")
+            }
         }
 
-        RxEventBus.listen(RxEvents.EventSetRoom2::class.java).subscribe {
-            (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
+        /***/
+        RxEventBus.listen(RxEvents.PostEventSetRoom::class.java).subscribe {
+            try{
+                (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
+                Log.d("EventSetRoom2","success")
+            } catch(e: Exception){
+                Log.e("EventSetRoom2","$e")
+            }
         }
 
         //글쓰기 버튼
