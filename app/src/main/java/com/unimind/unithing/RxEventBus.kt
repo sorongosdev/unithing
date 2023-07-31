@@ -1,9 +1,7 @@
 package com.unimind.unithing
 
-import android.content.Context
+import com.google.android.play.integrity.internal.t
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 
 object RxEventBus {
@@ -19,8 +17,8 @@ object RxEventBus {
 
 class RxEvents {
 
-    class EventSetRoom(val isSuccess: Boolean)
-    class EventSetRoom2(val isSuccess: Boolean)
+    class CurrentUserEventSetRoom(val isSuccess: Boolean)
+    class PostEventSetRoom(val isSuccess: Boolean)
     class EventGoToStore()
 }
 
