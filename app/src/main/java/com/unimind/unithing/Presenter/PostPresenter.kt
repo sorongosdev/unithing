@@ -1,12 +1,9 @@
 package com.unimind.unithing.Presenter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
-import com.unimind.unithing.Contract.AuthorityContract
 import com.unimind.unithing.Contract.PostContract
-import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.Repository.RemoteDataSource.PostRepositoryImpl
@@ -17,13 +14,15 @@ import com.unimind.unithing.RxEvents
 class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
     var document = mutableListOf<Post>()
 
+    @SuppressLint("CheckResult")
     override fun post(title: String, content: String) {
         val post = Post(
             title = title,
             content = content,
             date = Timestamp.now(),
             history = null,
-            nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString()
+            nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString(),
+            postId = makeRandomId(),
         )
         PostRepositoryImpl.post(post) { success ->
             if (success) {
@@ -31,9 +30,18 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
                 view.nextActivity()
             } else view.showToast("게시글 업로드 실패")
         }
+
+        RxEventBus.listen(RxEvents.PostIdEventSetRoom::class.java).subscribe {
+            try {
+
+            } catch (e: Exception) {
+                Log.e("PostIdEventSetRoom", "$e")
+            }
+        }
+
+
     }
 
-    //TODO : post로 형변환
     override fun showPost() {
         PostRepositoryImpl.getAllPost() { result ->
             Log.d("showPost", "$result")
@@ -42,5 +50,12 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
                 RxEventBus.publish(RxEvents.PostEventSetRoom(true))
             }
         }
+    }
+
+    /**랜덤 아이디를 생성해주는 함수*/
+    override fun makeRandomId(): String {
+        val charset = ('0'..'9') + ('a'..'z') + ('A'..'Z')
+        return List(20) { charset.random() }
+            .joinToString("")
     }
 }

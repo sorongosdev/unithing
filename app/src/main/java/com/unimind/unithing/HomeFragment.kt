@@ -105,4 +105,8 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         TODO("Not yet implemented")
     }
 
+    override fun setPostDetailView() {
+        TODO("Not yet implemented")
+    }
+
 }

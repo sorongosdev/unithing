@@ -20,6 +20,7 @@ class RxEvents {
     class CurrentUserEventSetRoom(val isSuccess: Boolean)
     class PostEventSetRoom(val isSuccess: Boolean)
     class CommentEventSetRoom(val isSuccess: Boolean)
+    class PostIdEventSetRoom(val isSuccess: Boolean)
     class EventGoToStore()
 }
 

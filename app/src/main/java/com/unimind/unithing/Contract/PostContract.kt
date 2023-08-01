@@ -13,6 +13,7 @@ interface PostContract {
         fun post(title: String, content: String)
 //        fun showPost() : MutableList<Post>
         fun showPost()
+        fun makeRandomId(): String
     }
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)
