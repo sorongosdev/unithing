@@ -1,5 +1,6 @@
 package com.unimind.unithing.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Data.Post
+import com.unimind.unithing.Presenter.CommentPresenter
 import com.unimind.unithing.R
 
 class HomeAdapter (var itemList: MutableList<Post>, listener: CommentContract.View):
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+    var commentPresenter = CommentPresenter(listener)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
@@ -25,6 +28,8 @@ class HomeAdapter (var itemList: MutableList<Post>, listener: CommentContract.Vi
         holder.content.text = itemList[position].content
         holder.commentBtn.setOnClickListener {
             mCallback.showCommentActivity()
+            Log.d("Comment","home adapter itemlist[position] => ${itemList[position]}")
+            commentPresenter.savePostInfo(itemList[position])
         }
     }
 
