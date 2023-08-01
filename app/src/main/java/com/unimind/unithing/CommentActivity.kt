@@ -14,12 +14,14 @@ import com.unimind.unithing.Presenter.CertificatePresenter
 import com.unimind.unithing.Presenter.CommentPresenter
 import com.unimind.unithing.Presenter.PostPresenter
 import com.unimind.unithing.Repository.LocalDataSource.PostInfoRepositoryImpl
+import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.databinding.ActivityCommentBinding
+import com.unimind.unithing.databinding.ItemFeedBinding
 
 class CommentActivity : AppCompatActivity(), CommentContract.View {
     private lateinit var binding: ActivityCommentBinding
     private lateinit var commentPresenter: CommentPresenter
-    private val itemFeedView = binding.activityCommentFeedDetail
+    lateinit var itemFeedView: ItemFeedBinding
     private lateinit var thisPostInfo: Post
 
 //    private var commentPresenter = CommentPresenter(this)
@@ -51,17 +53,15 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
             } catch (e: Exception) {
                 Log.e("CommentEventSetRoom", "$e")
             }
-//            val itemFeedView = binding.activityCommentFeedDetail
-//            val thisPostInfo = commentPresenter.thisPostInfo
-//            Log.d("Comment", "thisPostInfo at CommentActivity => $thisPostInfo")
-//
-//            itemFeedView.title = thisPostInfo.title
-//            itemFeedView.content = thisPostInfo.content
         }
     }
 
     override fun setPostDetailView() {
+        itemFeedView = binding.activityCommentFeedDetail
+
         itemFeedView.title = thisPostInfo.title
         itemFeedView.content = thisPostInfo.content
+        itemFeedView.nickname = thisPostInfo.nickname
+        itemFeedView.belong = UserInfoRepositoryImpl.currentUser?.major
     }
 }
