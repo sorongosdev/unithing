@@ -44,9 +44,7 @@ object CommentRepositoryImpl : CommentContract.CommentRepository {
             }
     }
     override fun getAllComment(callback: (MutableList<DocumentSnapshot>) -> Unit) {
-        Log.d("getAllComment","postId => ${PostInfoRepositoryImpl.postInfo!!.postId}")
         firestorePostDB.document(PostInfoRepositoryImpl.postInfo!!.postId).collection("comment")
-//            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { document ->
                 Log.d("getAllComment", "${document.documents}")

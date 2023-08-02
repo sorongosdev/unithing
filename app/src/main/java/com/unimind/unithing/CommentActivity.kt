@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.unimind.unithing.Adapter.CommentAdapter
+import com.unimind.unithing.Adapter.CommentNestedAdapter
 import com.unimind.unithing.Adapter.HomeAdapter
 import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Data.Post
@@ -34,24 +36,49 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
         commentPresenter = CommentPresenter(this)
 
-        /**포스트 뷰 불러오기*/
+        /***************포스트 관련*/
+
+        //포스트 뷰 불러오기
         updatePostView()
-        /**댓글 불러오기*/
+
+        /************************/
+
+        /****************************************************************댓글 관련*/
+
+        //댓글 어댑터 초기화
+//        initCommentRv()
+
+        //NestedAdapter init
+
+        initCommentNestedAdapter()
+
+        //댓글 불러오기
         commentPresenter.showComment()
+        RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
+            try {
+//                (binding.activityCommentRv.adapter as CommentAdapter).setData(commentPresenter.commentList)
+                (binding.activityCommentRv.adapter as CommentNestedAdapter).setData(commentPresenter.commentList)
+                Log.d("CommentRegisterEvent", "success")
+            } catch (e: Exception) {
+                Log.e("CommentRegisterEvent", "$e")
+            }
+        }
 
-//        RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
-//            try{
-//                commentPresenter.showComment()
-//                Log.d("CommentRegisterEvent","success")
-//            } catch(e: Exception){
-//                Log.e("CommentRegisterEvent","$e")
-//            }
-//        }
-
-        /**댓글 등록 버튼 클릭 리스너*/
+        //댓글 등록 버튼 클릭 리스너*/
         binding.activityCommentCommentBtn.setOnClickListener {
             val commentContent = binding.activityCommentFeedTiet.text.toString()
             commentPresenter.registerComment(commentContent)
+        }
+
+        /************************************************************************/
+
+
+    }
+
+    private fun initCommentNestedAdapter() {
+        binding.activityCommentRv.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = CommentNestedAdapter()
         }
     }
 
@@ -88,9 +115,9 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
     /**댓글 리사이클러뷰를 초기화해주는 함수*/
     private fun initCommentRv() {
-//        binding.rv.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            adapter = HomeAdapter(mutableListOf(), listener)
-//        }
+        binding.activityCommentRv.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = CommentAdapter(mutableListOf())
+        }
     }
 }

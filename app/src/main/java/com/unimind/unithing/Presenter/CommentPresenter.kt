@@ -15,7 +15,7 @@ import com.unimind.unithing.RxEventBus
 import com.unimind.unithing.RxEvents
 
 class CommentPresenter(val view: CommentContract.View) : CommentContract.Presenter {
-    var document = mutableListOf<Comment>()
+    var commentList = mutableListOf<Comment>()
 
     override fun savePostInfo(postInfo: Post) {
         PostInfoRepositoryImpl.postInfo = postInfo
@@ -42,7 +42,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
         CommentRepositoryImpl.getAllComment() { result ->
             Log.d("showComment", "$result")
             result.forEach {
-                document.add(it.toObject(Comment::class.java)!!)
+                commentList.add(it.toObject(Comment::class.java)!!)
                 RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
             }
         }

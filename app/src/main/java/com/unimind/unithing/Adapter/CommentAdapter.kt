@@ -14,7 +14,7 @@ import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Presenter.CommentPresenter
 import com.unimind.unithing.R
 
-class CommentAdapter (var itemList: MutableList<Comment>, listener: CommentContract.View):
+class CommentAdapter (var itemList: MutableList<Comment>):
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,8 +31,6 @@ class CommentAdapter (var itemList: MutableList<Comment>, listener: CommentContr
     override fun getItemCount(): Int {
         return itemList.size
     }
-
-    private val mCallback = listener
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val nickname: TextView = view.findViewById(R.id.item_comment_nickname_tv)

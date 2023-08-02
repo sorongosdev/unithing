@@ -11,4 +11,5 @@ data class Comment(
     val date: Timestamp = Timestamp.now(),
     val like: Int = 0,
     val comment_id: String = "",
+    val type: Int = 1,
 )
