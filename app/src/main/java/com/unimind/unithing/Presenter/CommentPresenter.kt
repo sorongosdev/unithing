@@ -40,7 +40,6 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
 
     override fun showComment() {
         CommentRepositoryImpl.getAllComment() { result ->
-            Log.d("showComment", "$result")
             result.forEach {
                 commentList.add(it.toObject(Comment::class.java)!!)
                 RxEventBus.publish(RxEvents.CommentRegisterEvent(true))

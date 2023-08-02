@@ -47,7 +47,6 @@ object CommentRepositoryImpl : CommentContract.CommentRepository {
         firestorePostDB.document(PostInfoRepositoryImpl.postInfo!!.postId).collection("comment")
             .get()
             .addOnSuccessListener { document ->
-                Log.d("getAllComment", "${document.documents}")
                 callback(document.documents)
             }
 

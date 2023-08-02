@@ -9,7 +9,7 @@ interface CommentContract {
         /**댓글 보기로 이동*/
         fun showCommentActivity()
         fun updatePostView()
-        fun setPostDetailView()
+//        fun setPostDetailView()
         fun showToast(message: String)
     }
 

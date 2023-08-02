@@ -19,7 +19,11 @@ import com.unimind.unithing.databinding.ItemFeedBinding
 
 class CommentNestedAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var itemList = mutableListOf<Comment>()
+    var commentList = mutableListOf<Comment>()
+    var postItem = Post()
+
+    lateinit var totalView: Map<Post, MutableList<Comment>>
+
     val POST_VIEW = 0
     val COMMENT_VIEW = 1
 
@@ -35,6 +39,7 @@ class CommentNestedAdapter :
                     parent,
                     false
                 )
+                Log.d("Adapter", "onCreateViewHolder")
                 PostViewHolder(itemFeedBinding)
             }
 
@@ -55,32 +60,51 @@ class CommentNestedAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (holder is PostViewHolder) {
-//            holder.binding.title = itemList[position].
-//        } else if (holder is CommentViewHolder) {
-//            //view update
-//        }
-        if (holder is CommentViewHolder){
-            holder.binding.itemCommentNicknameTv.text = itemList[position].user_nickname
-            holder.binding.itemCommentBelongTv.text = itemList[position].user_belong
-            holder.binding.itemCommentContentTv.text = itemList[position].content
+        if (holder is PostViewHolder) {
+            Log.d("Adapter", "onBindViewHolder")
+            holder.binding.itemFeedNicknameTv.text = postItem.nickname
+            holder.binding.itemFeedBelongTv.text = "소속소속소속"
+            holder.binding.itemFeedTitleTv.text = postItem.title
+            holder.binding.itemFeedContentTv.text = postItem.content
+        } else if (holder is CommentViewHolder) {
+            holder.binding.itemCommentNicknameTv.text = commentList[position].user_nickname
+            holder.binding.itemCommentBelongTv.text = commentList[position].user_belong
+            holder.binding.itemCommentContentTv.text = commentList[position].content
         }
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return commentList.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].type == 1) COMMENT_VIEW else POST_VIEW
+//        return if (commentList[position].type == 1) {
+//            Log.d("Adapter","COMMENT_VIEW")
+//            COMMENT_VIEW
+//        } else {
+//            Log.d("Adapter","POST_VIEW")
+//            POST_VIEW
+//        }
+        return if (position == 0) {
+            Log.d("Adapter", "POST_VIEW")
+            POST_VIEW
+        } else {
+            Log.d("Adapter", "COMMENT_VIEW")
+            COMMENT_VIEW
+        }
     }
 
     inner class PostViewHolder(val binding: ItemFeedBinding) : RecyclerView.ViewHolder(binding.root)
     inner class CommentViewHolder(val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    fun setData(new: MutableList<Comment>) {
-        itemList = new
+    fun setComment(new: MutableList<Comment>) {
+        commentList = new
         notifyDataSetChanged()
+    }
+
+    fun setPost(new: Post) {
+        Log.d("Adapter", "setPost")
+        postItem = new
     }
 }

@@ -36,6 +36,9 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
         commentPresenter = CommentPresenter(this)
 
+        //초기화
+        initCommentNestedAdapter()
+
         /***************포스트 관련*/
 
         //포스트 뷰 불러오기
@@ -48,21 +51,9 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         //댓글 어댑터 초기화
 //        initCommentRv()
 
-        //NestedAdapter init
-
-        initCommentNestedAdapter()
-
         //댓글 불러오기
         commentPresenter.showComment()
-        RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
-            try {
-//                (binding.activityCommentRv.adapter as CommentAdapter).setData(commentPresenter.commentList)
-                (binding.activityCommentRv.adapter as CommentNestedAdapter).setData(commentPresenter.commentList)
-                Log.d("CommentRegisterEvent", "success")
-            } catch (e: Exception) {
-                Log.e("CommentRegisterEvent", "$e")
-            }
-        }
+        updateCommentView()
 
         //댓글 등록 버튼 클릭 리스너*/
         binding.activityCommentCommentBtn.setOnClickListener {
@@ -73,6 +64,34 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         /************************************************************************/
 
 
+    }
+    @SuppressLint("CheckResult")
+    /**전달받은 postInfo로 CommentActivity의 view를 업데이트 한다.*/
+    override fun updatePostView() {
+        RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
+            try {
+                thisPostInfo = PostInfoRepositoryImpl.postInfo!!
+                //포스트뷰 업데이트를 위해 넘겨줌
+                (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
+
+            } catch (e: Exception) {
+                Log.e("CommentEvent", "$e")
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun updateCommentView() {
+        RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
+            try {
+//                (binding.activityCommentRv.adapter as CommentAdapter).setData(commentPresenter.commentList)
+                (binding.activityCommentRv.adapter as CommentNestedAdapter).setComment(
+                    commentPresenter.commentList
+                )
+            } catch (e: Exception) {
+                Log.e("CommentRegisterEvent", "$e")
+            }
+        }
     }
 
     private fun initCommentNestedAdapter() {
@@ -86,28 +105,16 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         TODO("Not yet implemented")
     }
 
-    @SuppressLint("CheckResult")
-    /**전달받은 postInfo로 CommentActivity의 view를 업데이트 한다.*/
-    override fun updatePostView() {
-        RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
-            try {
-                thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-                setPostDetailView()
 
-            } catch (e: Exception) {
-                Log.e("CommentEvent", "$e")
-            }
-        }
-    }
 
-    override fun setPostDetailView() {
-        itemFeedView = binding.activityCommentFeedDetail
-
-        itemFeedView.title = thisPostInfo.title
-        itemFeedView.content = thisPostInfo.content
-        itemFeedView.nickname = thisPostInfo.nickname
-        itemFeedView.belong = UserInfoRepositoryImpl.currentUser?.major
-    }
+//    override fun setPostDetailView() {
+//        itemFeedView = binding.activityCommentFeedDetail
+//
+//        itemFeedView.title = thisPostInfo.title
+//        itemFeedView.content = thisPostInfo.content
+//        itemFeedView.nickname = thisPostInfo.nickname
+//        itemFeedView.belong = UserInfoRepositoryImpl.currentUser?.major
+//    }
 
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
