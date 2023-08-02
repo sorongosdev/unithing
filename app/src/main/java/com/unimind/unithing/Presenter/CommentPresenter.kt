@@ -42,8 +42,8 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
         CommentRepositoryImpl.getAllComment() { result ->
             result.forEach {
                 commentList.add(it.toObject(Comment::class.java)!!)
-                RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
             }
+            RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
         }
     }
 

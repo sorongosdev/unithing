@@ -45,6 +45,8 @@ object CommentRepositoryImpl : CommentContract.CommentRepository {
     }
     override fun getAllComment(callback: (MutableList<DocumentSnapshot>) -> Unit) {
         firestorePostDB.document(PostInfoRepositoryImpl.postInfo!!.postId).collection("comment")
+            //TODO : 날짜 빠른게 위에 보이게
+            .orderBy("date", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { document ->
                 callback(document.documents)

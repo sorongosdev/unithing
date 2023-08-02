@@ -71,7 +71,8 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
             try {
                 thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-                //포스트뷰 업데이트를 위해 넘겨줌
+                Log.d("Adapter","thisPostInfo => $thisPostInfo")
+                //10번이나 실행됨
                 (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
 
             } catch (e: Exception) {
@@ -84,7 +85,6 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
     private fun updateCommentView() {
         RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
             try {
-//                (binding.activityCommentRv.adapter as CommentAdapter).setData(commentPresenter.commentList)
                 (binding.activityCommentRv.adapter as CommentNestedAdapter).setComment(
                     commentPresenter.commentList
                 )

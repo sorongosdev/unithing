@@ -1,5 +1,6 @@
 package com.unimind.unithing.Adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -62,29 +63,25 @@ class CommentNestedAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PostViewHolder) {
             Log.d("Adapter", "onBindViewHolder")
+            Log.d("Adapter", "postItem => $postItem")
             holder.binding.itemFeedNicknameTv.text = postItem.nickname
             holder.binding.itemFeedBelongTv.text = "소속소속소속"
             holder.binding.itemFeedTitleTv.text = postItem.title
             holder.binding.itemFeedContentTv.text = postItem.content
         } else if (holder is CommentViewHolder) {
-            holder.binding.itemCommentNicknameTv.text = commentList[position].user_nickname
-            holder.binding.itemCommentBelongTv.text = commentList[position].user_belong
-            holder.binding.itemCommentContentTv.text = commentList[position].content
+            holder.binding.itemCommentNicknameTv.text = commentList[position-1].user_nickname
+            holder.binding.itemCommentBelongTv.text = commentList[position-1].user_belong
+            holder.binding.itemCommentContentTv.text = commentList[position-1].content
         }
     }
 
     override fun getItemCount(): Int {
-        return commentList.size
+        return commentList.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return if (commentList[position].type == 1) {
-//            Log.d("Adapter","COMMENT_VIEW")
-//            COMMENT_VIEW
-//        } else {
-//            Log.d("Adapter","POST_VIEW")
-//            POST_VIEW
-//        }
+        Log.d("Adapter", "position => $position")
+
         return if (position == 0) {
             Log.d("Adapter", "POST_VIEW")
             POST_VIEW
@@ -100,11 +97,12 @@ class CommentNestedAdapter :
 
     fun setComment(new: MutableList<Comment>) {
         commentList = new
-        notifyDataSetChanged()
+        notifyItemInserted(1)
     }
 
     fun setPost(new: Post) {
         Log.d("Adapter", "setPost")
         postItem = new
+        notifyItemInserted(0)
     }
 }
