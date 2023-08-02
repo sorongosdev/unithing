@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.unimind.unithing.Adapter.CommentAdapter
 import com.unimind.unithing.Adapter.CommentNestedAdapter
 import com.unimind.unithing.Adapter.HomeAdapter
 import com.unimind.unithing.Contract.CommentContract
@@ -107,26 +106,7 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         TODO("Not yet implemented")
     }
 
-
-
-//    override fun setPostDetailView() {
-//        itemFeedView = binding.activityCommentFeedDetail
-//
-//        itemFeedView.title = thisPostInfo.title
-//        itemFeedView.content = thisPostInfo.content
-//        itemFeedView.nickname = thisPostInfo.nickname
-//        itemFeedView.belong = UserInfoRepositoryImpl.currentUser?.major
-//    }
-
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
-    /**댓글 리사이클러뷰를 초기화해주는 함수*/
-    private fun initCommentRv() {
-        binding.activityCommentRv.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = CommentAdapter(mutableListOf())
-        }
     }
 }
