@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_comment_nickname"
+        android:id="@+id/item_comment_nickname_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="(test)소롱고스"
@@ -21,13 +21,14 @@
 
 
     <TextView
-        android:id="@+id/item_comment_belong"
+        android:id="@+id/item_comment_belong_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="(test)한양대학교 ERICA 전자공학부 학부생"
-        app:layout_constraintStart_toStartOf="@id/item_comment_nickname"
-        app:layout_constraintTop_toBottomOf="@id/item_comment_nickname" />
+        app:layout_constraintStart_toStartOf="@id/item_comment_nickname_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_comment_nickname_tv" />
     <TextView
+        android:id="@+id/item_comment_content_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="댓글댓글댓글댓글"
