@@ -2,23 +2,16 @@ package com.unimind.unithing
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unimind.unithing.Adapter.CommentNestedAdapter
-import com.unimind.unithing.Adapter.HomeAdapter
 import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Data.Post
-import com.unimind.unithing.Presenter.CertificatePresenter
 import com.unimind.unithing.Presenter.CommentPresenter
-import com.unimind.unithing.Presenter.PostPresenter
 import com.unimind.unithing.Repository.LocalDataSource.PostInfoRepositoryImpl
-import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.databinding.ActivityCommentBinding
 import com.unimind.unithing.databinding.ItemFeedBinding
 
@@ -39,27 +32,19 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         initCommentNestedAdapter()
 
         /***************포스트 관련*/
-
         //포스트 뷰 불러오기
         updatePostView()
-
         /************************/
 
         /****************************************************************댓글 관련*/
-
-        //댓글 어댑터 초기화
-//        initCommentRv()
-
-        //댓글 불러오기
-        commentPresenter.showComment()
+        //댓글뷰 불러오기
         updateCommentView()
 
-        //댓글 등록 버튼 클릭 리스너*/
+        //댓글 등록 버튼 클릭 리스너
         binding.activityCommentCommentBtn.setOnClickListener {
             val commentContent = binding.activityCommentFeedTiet.text.toString()
             commentPresenter.registerComment(commentContent)
         }
-
         /************************************************************************/
 
 
@@ -84,6 +69,8 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
     @SuppressLint("CheckResult")
     private fun updateCommentView() {
+        commentPresenter.showComment()
+
         RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
             try {
                 (binding.activityCommentRv.adapter as CommentNestedAdapter).setComment(
