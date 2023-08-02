@@ -7,11 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <include-->
-<!--            android:id="@+id/activity_comment_feed_detail"-->
-<!--            layout="@layout/item_feed"-->
-<!--            bind:title="{@title}" />-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_comment_rv"
             android:layout_width="match_parent"

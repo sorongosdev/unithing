@@ -61,13 +61,21 @@ class CommentNestedAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("Adapter", "onBindViewHolder")
+
         if (holder is PostViewHolder) {
-            Log.d("Adapter", "onBindViewHolder")
-            Log.d("Adapter", "postItem => $postItem")
+            Log.d("Adapter", "onBindViewHolder PostViewHolder")
             holder.binding.itemFeedNicknameTv.text = postItem.nickname
+            Log.d("Adapter", "nickname => ${postItem.nickname}")
+
             holder.binding.itemFeedBelongTv.text = "소속소속소속"
+
             holder.binding.itemFeedTitleTv.text = postItem.title
+            Log.d("Adapter", "title => ${postItem.title}")
+
             holder.binding.itemFeedContentTv.text = postItem.content
+            Log.d("Adapter", "content => ${postItem.content}")
+
         } else if (holder is CommentViewHolder) {
             holder.binding.itemCommentNicknameTv.text = commentList[position-1].user_nickname
             holder.binding.itemCommentBelongTv.text = commentList[position-1].user_belong
@@ -80,7 +88,7 @@ class CommentNestedAdapter :
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("Adapter", "position => $position")
+        Log.d("Adapter", "getItemViewType position=> $position")
 
         return if (position == 0) {
             Log.d("Adapter", "POST_VIEW")
@@ -96,13 +104,14 @@ class CommentNestedAdapter :
         RecyclerView.ViewHolder(binding.root)
 
     fun setComment(new: MutableList<Comment>) {
+        Log.d("Adapter", "setComment")
         commentList = new
-        notifyItemInserted(1)
+        notifyDataSetChanged()
     }
 
     fun setPost(new: Post) {
         Log.d("Adapter", "setPost")
         postItem = new
-        notifyItemInserted(0)
+        notifyDataSetChanged()
     }
 }

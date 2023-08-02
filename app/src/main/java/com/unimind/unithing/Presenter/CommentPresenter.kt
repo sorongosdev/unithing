@@ -18,6 +18,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
     var commentList = mutableListOf<Comment>()
 
     override fun savePostInfo(postInfo: Post) {
+
         PostInfoRepositoryImpl.postInfo = postInfo
         RxEventBus.publish(RxEvents.CommentEvent(true))
     }

@@ -71,13 +71,15 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
             try {
                 thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-                Log.d("Adapter","thisPostInfo => $thisPostInfo")
-                //10번이나 실행됨
-                (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
+                //10번 실행됨
+//                (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
 
             } catch (e: Exception) {
                 Log.e("CommentEvent", "$e")
             }
+            // 5번 실행됨
+
+            (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
         }
     }
 
