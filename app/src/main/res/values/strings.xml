@@ -3,4 +3,5 @@
     <string name="db_user_account">user_account</string>
     <string name="db_major_certificate">major_certificate</string>
     <string name="db_board">board</string>
+    <string name="db_comment">comment</string>
 </resources>

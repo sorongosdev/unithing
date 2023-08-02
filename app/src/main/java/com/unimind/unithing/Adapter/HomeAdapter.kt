@@ -28,7 +28,6 @@ class HomeAdapter (var itemList: MutableList<Post>, listener: CommentContract.Vi
         holder.content.text = itemList[position].content
         holder.commentBtn.setOnClickListener {
             mCallback.showCommentActivity()
-            Log.d("Comment","home adapter itemlist[position] => ${itemList[position]}")
             commentPresenter.savePostInfo(itemList[position])
         }
     }

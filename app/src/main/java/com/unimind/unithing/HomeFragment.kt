@@ -44,21 +44,21 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         initHomeRv()
 
         //리스트 업데이트
-        RxEventBus.listen(RxEvents.CurrentUserEventSetRoom::class.java).subscribe {
+        RxEventBus.listen(RxEvents.CurrentUserEvent::class.java).subscribe {
             try{
                 postPresenter.showPost()
-                Log.d("CurrentUserEventSetRoom","success")
+                Log.d("CurrentUserEvent","success")
             } catch(e: Exception){
-                Log.e("CurrentUserEventSetRoom","$e")
+                Log.e("CurrentUserEvent","$e")
             }
         }
 
-        RxEventBus.listen(RxEvents.PostEventSetRoom::class.java).subscribe {
+        RxEventBus.listen(RxEvents.PostEvent::class.java).subscribe {
             try{
                 (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
-                Log.d("PostEventSetRoom","success")
+                Log.d("PostEvent","success")
             } catch(e: Exception){
-                Log.e("PostEventSetRoom","$e")
+                Log.e("PostEvent","$e")
             }
         }
 
@@ -71,7 +71,6 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
     }
 
     private fun initHomeRv() {
-        Log.d("initHomeRv", "init")
         binding.fragmentHomeRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = HomeAdapter(mutableListOf(), listener)
@@ -83,7 +82,6 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
     }
 
     override fun nextActivity() {
-//        activity?.finish()
         val intent = Intent(activity, PostActivity::class.java)
         startActivity(intent)
     }

@@ -10,54 +10,49 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.CustomApplication
+import com.unimind.unithing.Data.Comment
 import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Data.User
 import com.unimind.unithing.R
+import com.unimind.unithing.Repository.LocalDataSource.PostInfoRepositoryImpl
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
 import com.unimind.unithing.RxEventBus
 import com.unimind.unithing.RxEvents
 import com.unimind.unithing.StringResource
 import java.util.logging.Handler
 
-object PostRepositoryImpl : PostContract.PostRepository {
+object CommentRepositoryImpl : CommentContract.CommentRepository {
+    private val firestoreBoardDB =
+        FirebaseFirestore.getInstance().collection(
+            StringResource.getStringResource(CustomApplication.ctx, R.string.db_board)
+        )
+    private val firestorePostDB =
+        firestoreBoardDB.document(UserInfoRepositoryImpl.currentUser?.major!!).collection("post")
 
-    private lateinit var userUid: String
-    private lateinit var allPosts: DocumentSnapshot
-    lateinit var postId: String
-
-    private val firestoreBoardDB = FirebaseFirestore.getInstance().collection(
-        StringResource.getStringResource(CustomApplication.ctx, R.string.db_board)
-    )
-    lateinit var firestorePostDB: CollectionReference
-
-    override fun post(post: Post, callback: (Boolean) -> Unit) {
-        userUid = Firebase.auth.uid.toString()
-
-        firestorePostDB.document(post.postId).set(post)
+    override fun registerComment(postId: String, comment: Comment, callback: (Boolean) -> Unit) {
+        firestorePostDB.document(postId).collection("comment")
+            .document(comment.comment_id)
+            .set(comment)
             .addOnSuccessListener {
                 callback(true)
-//                RxEventBus.publish(RxEvents.PostIdEvent(true))
             }
             .addOnFailureListener {
                 callback(false)
             }
     }
-
-    /**db에서 포스트들을 모두 받아옴*/
-    override fun getAllPost(callback: (MutableList<DocumentSnapshot>) -> Unit) {
-        firestorePostDB = firestoreBoardDB.document(UserInfoRepositoryImpl.currentUser?.major!!)
-            .collection("post")
-
-        firestorePostDB
-            //최신 데이터가 상단에 보이도록 정렬
-            .orderBy("date", Query.Direction.DESCENDING)
+    override fun getAllComment(callback: (MutableList<DocumentSnapshot>) -> Unit) {
+        Log.d("getAllComment","postId => ${PostInfoRepositoryImpl.postInfo!!.postId}")
+        firestorePostDB.document(PostInfoRepositoryImpl.postInfo!!.postId).collection("comment")
+//            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { document ->
-                Log.d("getAllPost", "${document.documents}")
+                Log.d("getAllComment", "${document.documents}")
                 callback(document.documents)
             }
+
     }
 
 }

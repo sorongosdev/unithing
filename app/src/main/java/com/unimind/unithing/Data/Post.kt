@@ -11,7 +11,7 @@ data class Post(
     val date: Timestamp = Timestamp.now(),
     val like: Int=0,
     val view: Int=0,
-    val comment: Int=0, //메인에서는 댓글
+    val comment_cnt: Int=0, //메인에서는 댓글
     val history: List<String>? = emptyList(), //이전 수정 내용
     val postId: String="",
 )

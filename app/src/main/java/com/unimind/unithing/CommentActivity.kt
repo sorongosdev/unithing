@@ -6,8 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.unimind.unithing.Adapter.HomeAdapter
 import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Presenter.CertificatePresenter
@@ -24,17 +27,32 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
     lateinit var itemFeedView: ItemFeedBinding
     private lateinit var thisPostInfo: Post
 
-//    private var commentPresenter = CommentPresenter(this)
-
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comment)
 
         commentPresenter = CommentPresenter(this)
-        Log.d("Comment", "commentPresenter at CommentActivity is initialized")
 
+        /**포스트 뷰 불러오기*/
         updatePostView()
+        /**댓글 불러오기*/
+        commentPresenter.showComment()
+
+//        RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
+//            try{
+//                commentPresenter.showComment()
+//                Log.d("CommentRegisterEvent","success")
+//            } catch(e: Exception){
+//                Log.e("CommentRegisterEvent","$e")
+//            }
+//        }
+
+        /**댓글 등록 버튼 클릭 리스너*/
+        binding.activityCommentCommentBtn.setOnClickListener {
+            val commentContent = binding.activityCommentFeedTiet.text.toString()
+            commentPresenter.registerComment(commentContent)
+        }
     }
 
     override fun showCommentActivity() {
@@ -42,16 +60,15 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
     }
 
     @SuppressLint("CheckResult")
+    /**전달받은 postInfo로 CommentActivity의 view를 업데이트 한다.*/
     override fun updatePostView() {
-        RxEventBus.listen(RxEvents.CommentEventSetRoom::class.java).subscribe {
+        RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
             try {
-                Log.d("Comment", "subscribe try")
                 thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-                Log.d("Comment", "thisPostInfo at CommentActivity => $thisPostInfo")
                 setPostDetailView()
 
             } catch (e: Exception) {
-                Log.e("CommentEventSetRoom", "$e")
+                Log.e("CommentEvent", "$e")
             }
         }
     }
@@ -63,5 +80,17 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         itemFeedView.content = thisPostInfo.content
         itemFeedView.nickname = thisPostInfo.nickname
         itemFeedView.belong = UserInfoRepositoryImpl.currentUser?.major
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    /**댓글 리사이클러뷰를 초기화해주는 함수*/
+    private fun initCommentRv() {
+//        binding.rv.apply {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            adapter = HomeAdapter(mutableListOf(), listener)
+//        }
     }
 }

@@ -83,14 +83,12 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
         val docRef = firestoreUserDB.document(userUid)
         docRef.get()
             .addOnSuccessListener { document ->
-                Log.d("getUserInfo", "${document.id} : ${document.data}")
                 val userInfo = document.toObject(User::class.java)
-                Log.d("userInfo", "$userInfo") // 실행됨
                 callback(userInfo!!)
 
                 UserInfoRepositoryImpl.currentUser = userInfo
 
-                RxEventBus.publish(RxEvents.CurrentUserEventSetRoom(true)) // 인증된 전공이 없으면 npe가 뜸
+                RxEventBus.publish(RxEvents.CurrentUserEvent(true)) // 인증된 전공이 없으면 npe가 뜸
             }
     }
 

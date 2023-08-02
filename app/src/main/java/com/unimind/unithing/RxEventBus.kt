@@ -17,10 +17,13 @@ object RxEventBus {
 
 class RxEvents {
 
-    class CurrentUserEventSetRoom(val isSuccess: Boolean)
-    class PostEventSetRoom(val isSuccess: Boolean)
-    class CommentEventSetRoom(val isSuccess: Boolean)
-    class PostIdEventSetRoom(val isSuccess: Boolean)
+    class CurrentUserEvent(val isSuccess: Boolean)
+    class PostEvent(val isSuccess: Boolean)
+    /**댓글버튼 누른 후 postView 업데이트*/
+    class CommentEvent(val isSuccess: Boolean)
+    /**댓글 등록을 위해 필요*/
+    class CommentRegisterEvent(val isSuccess: Boolean)
+    class PostIdEvent(val isSuccess: Boolean)
     class EventGoToStore()
 }
 

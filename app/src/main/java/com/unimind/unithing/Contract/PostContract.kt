@@ -11,7 +11,6 @@ interface PostContract {
     }
     interface Presenter{
         fun post(title: String, content: String)
-//        fun showPost() : MutableList<Post>
         fun showPost()
         fun makeRandomId(): String
     }

@@ -1,5 +1,7 @@
 package com.unimind.unithing.Contract
 
+import com.google.firebase.firestore.DocumentSnapshot
+import com.unimind.unithing.Data.Comment
 import com.unimind.unithing.Data.Post
 
 interface CommentContract {
@@ -8,14 +10,19 @@ interface CommentContract {
         fun showCommentActivity()
         fun updatePostView()
         fun setPostDetailView()
+        fun showToast(message: String)
     }
 
     interface Presenter {
         fun savePostInfo(postInfo: Post)
-//        fun initThisPostInfo()
+        fun registerComment(commentContent: String)
+        fun showComment()
+        fun makeRandomId(): String
+
     }
 
     interface CommentRepository {
-
+        fun registerComment(postId: String, comment: Comment, callback: (Boolean) -> Unit)
+        fun getAllComment(callback: (MutableList<DocumentSnapshot>) -> Unit)
     }
 }

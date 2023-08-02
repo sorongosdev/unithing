@@ -31,13 +31,13 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             } else view.showToast("게시글 업로드 실패")
         }
 
-        RxEventBus.listen(RxEvents.PostIdEventSetRoom::class.java).subscribe {
-            try {
-
-            } catch (e: Exception) {
-                Log.e("PostIdEventSetRoom", "$e")
-            }
-        }
+//        RxEventBus.listen(RxEvents.PostIdEvent::class.java).subscribe {
+//            try {
+//
+//            } catch (e: Exception) {
+//                Log.e("PostIdEvent", "$e")
+//            }
+//        }
 
 
     }
@@ -47,7 +47,7 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             Log.d("showPost", "$result")
             result.forEach {
                 document.add(it.toObject(Post::class.java)!!)
-                RxEventBus.publish(RxEvents.PostEventSetRoom(true))
+                RxEventBus.publish(RxEvents.PostEvent(true))
             }
         }
     }
