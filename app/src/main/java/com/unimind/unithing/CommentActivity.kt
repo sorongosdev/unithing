@@ -1,8 +1,10 @@
 package com.unimind.unithing
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,7 +15,7 @@ import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Presenter.CommentPresenter
 import com.unimind.unithing.Repository.LocalDataSource.PostInfoRepositoryImpl
 import com.unimind.unithing.databinding.ActivityCommentBinding
-import com.unimind.unithing.databinding.ItemFeedBinding
+
 
 class CommentActivity : AppCompatActivity(), CommentContract.View {
     private lateinit var binding: ActivityCommentBinding
@@ -43,18 +45,20 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         binding.activityCommentCommentBtn.setOnClickListener {
             val commentContent = binding.activityCommentFeedTiet.text.toString()
             commentPresenter.registerComment(commentContent)
+            binding.activityCommentFeedTiet.setText("")
+            hideKeyboard()
         }
         /************************************************************************/
 
 
     }
+
     @SuppressLint("CheckResult")
-    /**전달받은 postInfo로 CommentActivity의 view를 업데이트 한다.*/
+    /**전달받은 postInfo로 CommentActivity의 포스트 view를 업데이트*/
     override fun updatePostView() {
         RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
             try {
                 thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-//                (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
 
             } catch (e: Exception) {
                 Log.e("CommentEvent", "$e")
@@ -65,6 +69,7 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         }
     }
 
+    /**CommentActivity의 댓글 view를 업데이트*/
     @SuppressLint("CheckResult")
     private fun updateCommentView() {
         commentPresenter.showComment()
@@ -94,5 +99,11 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    /**키보드를 내림*/
+    override fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
     }
 }

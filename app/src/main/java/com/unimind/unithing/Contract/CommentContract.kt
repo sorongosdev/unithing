@@ -11,6 +11,7 @@ interface CommentContract {
         fun updatePostView()
 //        fun setPostDetailView()
         fun showToast(message: String)
+        fun hideKeyboard()
     }
 
     interface Presenter {

@@ -80,7 +80,6 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
     override fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
     override fun nextActivity() {
         val intent = Intent(activity, PostActivity::class.java)
         startActivity(intent)
@@ -102,5 +101,7 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
     override fun updatePostView() {
         TODO("Not yet implemented")
     }
-
+    override fun hideKeyboard() {
+        TODO("Not yet implemented")
+    }
 }

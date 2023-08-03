@@ -63,7 +63,7 @@ class CommentNestedAdapter :
         if (holder is PostViewHolder) {
             holder.binding.itemFeedNicknameTv.text = postItem.nickname
 
-            holder.binding.itemFeedBelongTv.text = "소속소속소속"
+            holder.binding.itemFeedBelongTv.text = postItem.belong
 
             holder.binding.itemFeedTitleTv.text = postItem.title
 
