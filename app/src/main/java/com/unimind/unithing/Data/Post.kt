@@ -6,6 +6,7 @@ import java.util.Date
 /**사용자가 글을 업로드하면 등록되는 정보들*/
 data class Post(
     val nickname: String = "", //uid가 아닌 닉네임
+    val belong: String = "",
     val title: String = "",
     val content: String = "",
     val date: Timestamp = Timestamp.now(),

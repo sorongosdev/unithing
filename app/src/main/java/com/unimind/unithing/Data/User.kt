@@ -12,8 +12,9 @@ data class User (
     @PrimaryKey(autoGenerate = false) val uid: String = "",
     val email: String? = null,
     val nickname: String? = null,
+    /**major: db상 구분, belong: 인증 후 소속 업데이트*/
     val major: String? = null,
-//    val belong: String? = null,
+    val belong: String? = null,
     val type: String? = null,
     val level: Int? = null, // 레벨 (누적 경험치)
     val experience: Int? = null, // 주기적으로 초기화되는 경험치
