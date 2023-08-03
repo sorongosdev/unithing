@@ -26,7 +26,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
     override fun registerComment(commentContent: String) {
         val comment = Comment(
             user_nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString(), //uid가 아닌 닉네임
-            user_belong = UserInfoRepositoryImpl.currentUser?.major.toString(),
+            user_belong = UserInfoRepositoryImpl.currentUser?.belong.toString(),
             content = commentContent,
             comment_id = makeRandomId(),
         )

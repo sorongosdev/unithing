@@ -22,7 +22,7 @@
                 android:id="@+id/fragment_signin_email_tiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="student@test.com"
+                android:text="st@t.com"
                 android:hint="이메일 입력" />
 
         </com.google.android.material.textfield.TextInputLayout>

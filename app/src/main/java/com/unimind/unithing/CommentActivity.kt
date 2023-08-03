@@ -18,7 +18,6 @@ import com.unimind.unithing.databinding.ItemFeedBinding
 class CommentActivity : AppCompatActivity(), CommentContract.View {
     private lateinit var binding: ActivityCommentBinding
     private lateinit var commentPresenter: CommentPresenter
-    lateinit var itemFeedView: ItemFeedBinding
     private lateinit var thisPostInfo: Post
 
     @SuppressLint("CheckResult")
@@ -55,7 +54,6 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         RxEventBus.listen(RxEvents.CommentEvent::class.java).subscribe {
             try {
                 thisPostInfo = PostInfoRepositoryImpl.postInfo!!
-                //10번 실행됨
 //                (binding.activityCommentRv.adapter as CommentNestedAdapter).setPost(thisPostInfo)
 
             } catch (e: Exception) {
@@ -82,6 +80,7 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         }
     }
 
+    /**포스트뷰, 댓글뷰가 함께 엮여있는 리사이클러뷰를 초기화해줌*/
     private fun initCommentNestedAdapter() {
         binding.activityCommentRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

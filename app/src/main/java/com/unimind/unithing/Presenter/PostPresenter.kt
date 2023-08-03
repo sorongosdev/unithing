@@ -22,6 +22,7 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             date = Timestamp.now(),
             history = null,
             nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString(),
+            belong = UserInfoRepositoryImpl.currentUser?.belong.toString(),
             postId = makeRandomId(),
         )
         PostRepositoryImpl.post(post) { success ->
