@@ -34,5 +34,7 @@ class PostActivity : AppCompatActivity(), PostContract.View{
 
     override fun nextActivity() {
         this.finish()
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
     }
 }

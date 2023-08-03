@@ -15,7 +15,6 @@ object UserInfoRepositoryImpl : UserInfoContract.UserInfoRepository{
 
     /**로그인/회원가입될 때 회원정보를 업데이트, 이후 닉네임 변경, 과 변경 등등 변경 관련 함수 생기면 리네이밍 필요*/
     override fun insertUserInfo(user: User){
-        Log.d("currentUser","$user")
         Thread (
             Runnable {
                 //로컬에 회원정보가 없다면 로그인시 추가해준다

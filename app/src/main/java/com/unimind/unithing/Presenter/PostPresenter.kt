@@ -29,6 +29,8 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             if (success) {
                 view.showToast("게시글 업로드 성공")
                 view.nextActivity()
+                showPost()
+//                RxEventBus.publish(RxEvents.FeedUpdateEvent(true))
             } else view.showToast("게시글 업로드 실패")
         }
 
@@ -45,11 +47,11 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
 
     override fun showPost() {
         PostRepositoryImpl.getAllPost() { result ->
-            Log.d("showPost", "$result")
             result.forEach {
                 document.add(it.toObject(Post::class.java)!!)
-                RxEventBus.publish(RxEvents.PostEvent(true))
             }
+            PostRepositoryImpl.allPosts = document
+            RxEventBus.publish(RxEvents.PostEvent(true))
         }
     }
 }

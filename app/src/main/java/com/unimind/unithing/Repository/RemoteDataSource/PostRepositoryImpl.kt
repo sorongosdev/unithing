@@ -7,24 +7,19 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.CustomApplication
 import com.unimind.unithing.Data.Post
-import com.unimind.unithing.Data.User
 import com.unimind.unithing.R
 import com.unimind.unithing.Repository.LocalDataSource.UserInfoRepositoryImpl
-import com.unimind.unithing.RxEventBus
-import com.unimind.unithing.RxEvents
 import com.unimind.unithing.StringResource
-import java.util.logging.Handler
 
 object PostRepositoryImpl : PostContract.PostRepository {
 
     private lateinit var userUid: String
-    private lateinit var allPosts: DocumentSnapshot
+    lateinit var allPosts: MutableList<Post>
+
     lateinit var postId: String
 
     private val firestoreBoardDB = FirebaseFirestore.getInstance().collection(
@@ -38,7 +33,6 @@ object PostRepositoryImpl : PostContract.PostRepository {
         firestorePostDB.document(post.postId).set(post)
             .addOnSuccessListener {
                 callback(true)
-//                RxEventBus.publish(RxEvents.PostIdEvent(true))
             }
             .addOnFailureListener {
                 callback(false)
@@ -55,9 +49,12 @@ object PostRepositoryImpl : PostContract.PostRepository {
             .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { document ->
-                Log.d("getAllPost", "${document.documents}")
                 callback(document.documents)
             }
+    }
+
+    override fun getNewPost(){
+
     }
 
 }

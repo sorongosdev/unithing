@@ -23,6 +23,8 @@ class RxEvents {
     class CommentEvent(val isSuccess: Boolean)
     /**댓글 등록을 위해 필요*/
     class CommentRegisterEvent(val isSuccess: Boolean)
+    /**포스트 등록 후 피드를 업데이트*/
+    class FeedUpdateEvent(val isSuccess: Boolean)
 //    class EventGoToStore()
 }
 

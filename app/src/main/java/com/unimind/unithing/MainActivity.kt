@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() , UserInfoContract.View {
         val navController = navHostFragment.findNavController()
         binding.activityMainBnv.setupWithNavController(navController)
 
-        Log.d("Main","MainActivity")
     }
 
     override fun showToast(message: String) {

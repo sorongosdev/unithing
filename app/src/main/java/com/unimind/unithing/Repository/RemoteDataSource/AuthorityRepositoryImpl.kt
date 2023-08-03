@@ -22,7 +22,6 @@ object AuthorityRepositoryImpl : AuthorityContract.AuthorityRepository {
         docRef.get()
             .addOnSuccessListener { document ->
                 val authorized = document.data?.get("authorized")
-                Log.d("authorized","${document.id} : $authorized")
                 callback(authorized.toString().toBoolean())
             }
 

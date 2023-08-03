@@ -16,5 +16,6 @@ interface PostContract {
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)
         fun getAllPost(callback: (MutableList<DocumentSnapshot>) -> Unit)
+        fun getNewPost()
     }
 }

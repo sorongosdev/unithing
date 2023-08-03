@@ -18,6 +18,7 @@ class HomeAdapter (var itemList: MutableList<Post>, listener: CommentContract.Vi
     var commentPresenter = CommentPresenter(listener)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
         return ViewHolder(binding)
     }

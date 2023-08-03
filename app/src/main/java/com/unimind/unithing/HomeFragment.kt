@@ -18,6 +18,7 @@ import com.unimind.unithing.Contract.PostContract
 import com.unimind.unithing.Contract.UserInfoContract
 import com.unimind.unithing.Presenter.PostPresenter
 import com.unimind.unithing.Presenter.UserInfoPresenter
+import com.unimind.unithing.Repository.RemoteDataSource.PostRepositoryImpl
 import com.unimind.unithing.databinding.FragmentHomeBinding
 import io.reactivex.Observable
 
@@ -44,19 +45,21 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         initHomeRv()
 
         //리스트 업데이트
-        RxEventBus.listen(RxEvents.CurrentUserEvent::class.java).subscribe {
+        val job = RxEventBus.listen(RxEvents.CurrentUserEvent::class.java).subscribe {
             try{
                 postPresenter.showPost()
-                Log.d("CurrentUserEvent","success")
             } catch(e: Exception){
                 Log.e("CurrentUserEvent","$e")
             }
         }
+//        //swipe refresh
+//        binding.refresh.setOnRefreshListener {
+//            job.
+//        }
 
         RxEventBus.listen(RxEvents.PostEvent::class.java).subscribe {
             try{
-                (binding.fragmentHomeRv.adapter as HomeAdapter).setData(postPresenter.document)
-                Log.d("PostEvent","success")
+                (binding.fragmentHomeRv.adapter as HomeAdapter).setData(PostRepositoryImpl.allPosts)
             } catch(e: Exception){
                 Log.e("PostEvent","$e")
             }
@@ -81,6 +84,7 @@ class HomeFragment : Fragment(), UserInfoContract.View, PostContract.View, Comme
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
     override fun nextActivity() {
+//        this.activity?.finish()
         val intent = Intent(activity, PostActivity::class.java)
         startActivity(intent)
     }
