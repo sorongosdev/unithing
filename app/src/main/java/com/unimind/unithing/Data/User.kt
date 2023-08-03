@@ -4,6 +4,7 @@ import android.os.Parcelable
 import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.unimind.unithing.Presenter.NicknamePresenter
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -11,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class User (
     @PrimaryKey(autoGenerate = false) val uid: String = "",
     val email: String? = null,
-    val nickname: String? = null,
+    val nickname: String? = "@user-${NicknamePresenter().makeRandomId()}",
     /**major: db상 구분, belong: 인증 후 소속 업데이트*/
     val major: String? = null,
     val belong: String? = null,

@@ -12,7 +12,6 @@ interface PostContract {
     interface Presenter{
         fun post(title: String, content: String)
         fun showPost()
-        fun makeRandomId(): String
     }
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)

@@ -23,7 +23,7 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
             history = null,
             nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString(),
             belong = UserInfoRepositoryImpl.currentUser?.belong.toString(),
-            postId = makeRandomId(),
+            postId = NicknamePresenter().makeRandomId(),
         )
         PostRepositoryImpl.post(post) { success ->
             if (success) {
@@ -51,12 +51,5 @@ class PostPresenter(val view: PostContract.View) : PostContract.Presenter {
                 RxEventBus.publish(RxEvents.PostEvent(true))
             }
         }
-    }
-
-    /**랜덤 아이디를 생성해주는 함수*/
-    override fun makeRandomId(): String {
-        val charset = ('0'..'9') + ('a'..'z') + ('A'..'Z')
-        return List(20) { charset.random() }
-            .joinToString("")
     }
 }

@@ -17,8 +17,6 @@ interface CommentContract {
         fun savePostInfo(postInfo: Post)
         fun registerComment(commentContent: String)
         fun showComment()
-        fun makeRandomId(): String
-
     }
 
     interface CommentRepository {

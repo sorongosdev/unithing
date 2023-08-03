@@ -28,7 +28,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
             user_nickname = UserInfoRepositoryImpl.currentUser?.nickname.toString(), //uid가 아닌 닉네임
             user_belong = UserInfoRepositoryImpl.currentUser?.belong.toString(),
             content = commentContent,
-            comment_id = makeRandomId(),
+            comment_id = NicknamePresenter().makeRandomId(),
         )
         CommentRepositoryImpl.registerComment(
             PostInfoRepositoryImpl.postInfo!!.postId, comment
@@ -46,11 +46,5 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
             }
             RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
         }
-    }
-
-    override fun makeRandomId(): String {
-        val charset = ('0'..'9') + ('a'..'z') + ('A'..'Z')
-        return List(20) { charset.random() }
-            .joinToString("")
     }
 }
