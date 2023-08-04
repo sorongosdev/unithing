@@ -77,6 +77,7 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
 
         RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
             try {
+                Log.d("updateComment","allComments Activity => ${CommentRepositoryImpl.allComments.size}")
                 (binding.activityCommentRv.adapter as CommentNestedAdapter).setComment(
                     CommentRepositoryImpl.allComments
                 )

@@ -23,8 +23,6 @@ class CommentNestedAdapter :
     var commentList = mutableListOf<Comment>()
     var postItem = Post()
 
-    lateinit var totalView: Map<Post, MutableList<Comment>>
-
     val POST_VIEW = 0
     val COMMENT_VIEW = 1
 
@@ -94,12 +92,19 @@ class CommentNestedAdapter :
         RecyclerView.ViewHolder(binding.root)
 
     fun setComment(new: MutableList<Comment>) {
+        Log.d("updateComment","setComment")
         commentList = new
+        Log.d("updateComment","commentList => ${commentList.size}")
+
         notifyDataSetChanged()
+//        notifyItemRangeChanged(1,commentList.size)
+//        notifyItemInserted(1)
+//        notifyItemInserted(itemCount)
     }
 
     fun setPost(new: Post) {
         postItem = new
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
+        notifyItemInserted(0)
     }
 }

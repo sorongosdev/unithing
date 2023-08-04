@@ -18,7 +18,6 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
     var commentList = mutableListOf<Comment>()
 
     override fun savePostInfo(postInfo: Post) {
-
         PostInfoRepositoryImpl.postInfo = postInfo
         RxEventBus.publish(RxEvents.CommentEvent(true))
     }
@@ -35,8 +34,8 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
         ) { success ->
             if (success) {
                 view.showToast("댓글 등록 성공")
+                commentList.clear()
                 //TODO : 기존의 댓글에서 등록한 댓글만 추가로 불러오면 좋을것 같음
-//                CommentRepositoryImpl.newComment = comment
                 showComment()
             } else view.showToast("댓글 등록 실패")
         }
@@ -48,6 +47,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
                 commentList.add(it.toObject(Comment::class.java)!!)
             }
             CommentRepositoryImpl.allComments = commentList
+            Log.d("updateComment","allComments presenter => ${CommentRepositoryImpl.allComments.size}")
             RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
         }
     }
