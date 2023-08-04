@@ -25,6 +25,9 @@ import com.unimind.unithing.StringResource
 import java.util.logging.Handler
 
 object CommentRepositoryImpl : CommentContract.CommentRepository {
+
+    lateinit var allComments: MutableList<Comment>
+
     private val firestoreBoardDB =
         FirebaseFirestore.getInstance().collection(
             StringResource.getStringResource(CustomApplication.ctx, R.string.db_board)

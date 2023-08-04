@@ -14,6 +14,7 @@ import com.unimind.unithing.Contract.CommentContract
 import com.unimind.unithing.Data.Post
 import com.unimind.unithing.Presenter.CommentPresenter
 import com.unimind.unithing.Repository.LocalDataSource.PostInfoRepositoryImpl
+import com.unimind.unithing.Repository.RemoteDataSource.CommentRepositoryImpl
 import com.unimind.unithing.databinding.ActivityCommentBinding
 
 
@@ -77,7 +78,7 @@ class CommentActivity : AppCompatActivity(), CommentContract.View {
         RxEventBus.listen(RxEvents.CommentRegisterEvent::class.java).subscribe {
             try {
                 (binding.activityCommentRv.adapter as CommentNestedAdapter).setComment(
-                    commentPresenter.commentList
+                    CommentRepositoryImpl.allComments
                 )
             } catch (e: Exception) {
                 Log.e("CommentRegisterEvent", "$e")

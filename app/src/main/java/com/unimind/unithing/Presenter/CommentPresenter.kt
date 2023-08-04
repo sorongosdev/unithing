@@ -35,6 +35,9 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
         ) { success ->
             if (success) {
                 view.showToast("댓글 등록 성공")
+                //TODO : 기존의 댓글에서 등록한 댓글만 추가로 불러오면 좋을것 같음
+//                CommentRepositoryImpl.newComment = comment
+                showComment()
             } else view.showToast("댓글 등록 실패")
         }
     }
@@ -44,6 +47,7 @@ class CommentPresenter(val view: CommentContract.View) : CommentContract.Present
             result.forEach {
                 commentList.add(it.toObject(Comment::class.java)!!)
             }
+            CommentRepositoryImpl.allComments = commentList
             RxEventBus.publish(RxEvents.CommentRegisterEvent(true))
         }
     }
