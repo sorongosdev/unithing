@@ -14,5 +14,4 @@ class UserInfoPresenter(val view: UserInfoContract.View): UserInfoContract.Prese
             view.isAuthorized()
         } else view.notAuthorized()
     }
-
 }

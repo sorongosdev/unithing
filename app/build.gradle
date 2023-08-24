@@ -45,16 +45,18 @@ dependencies {
     // Reactive X 관련
     // RxKotlin
     implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
-    
+
     // Firebase 관련
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // Firebase Firestore
-    implementation  'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     implementation 'com.google.firebase:firebase-storage-ktx'
 
+    //refresh post
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     //navigation graph
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'

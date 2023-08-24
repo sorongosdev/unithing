@@ -11,11 +11,11 @@ interface PostContract {
     }
     interface Presenter{
         fun post(title: String, content: String)
-//        fun showPost() : MutableList<Post>
         fun showPost()
     }
     interface PostRepository{
         fun post(posting : Post, callback: (Boolean) -> Unit)
         fun getAllPost(callback: (MutableList<DocumentSnapshot>) -> Unit)
+        fun getNewPost()
     }
 }

@@ -83,14 +83,12 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
         val docRef = firestoreUserDB.document(userUid)
         docRef.get()
             .addOnSuccessListener { document ->
-                Log.d("getUserInfo", "${document.id} : ${document.data}")
                 val userInfo = document.toObject(User::class.java)
-                Log.d("userInfo", "$userInfo")
                 callback(userInfo!!)
 
                 UserInfoRepositoryImpl.currentUser = userInfo
 
-                RxEventBus.publish(RxEvents.EventSetRoom(true))
+                RxEventBus.publish(RxEvents.CurrentUserEvent(true)) // 인증된 전공이 없으면 npe가 뜸
             }
     }
 
@@ -100,7 +98,6 @@ object SignUserRepositoryImpl : SignUserContract.SignUserRepository {
         firestoreUserDB.document(userUid).set(user)
             .addOnCompleteListener {
                 callback(true)
-//                UserInfoRepositoryImpl.saveUserInfo()
             }.addOnFailureListener {
                 callback(false)
             }

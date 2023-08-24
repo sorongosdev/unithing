@@ -1,9 +1,7 @@
 package com.unimind.unithing
 
-import android.content.Context
+import com.google.android.play.integrity.internal.t
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 
 object RxEventBus {
@@ -19,9 +17,15 @@ object RxEventBus {
 
 class RxEvents {
 
-    class EventSetRoom(val isSuccess: Boolean)
-    class EventSetRoom2(val isSuccess: Boolean)
-    class EventGoToStore()
+    class CurrentUserEvent(val isSuccess: Boolean)
+    class PostEvent(val isSuccess: Boolean)
+    /**댓글버튼 누른 후 postView 업데이트*/
+    class CommentEvent(val isSuccess: Boolean)
+    /**댓글 등록을 위해 필요*/
+    class CommentRegisterEvent(val isSuccess: Boolean)
+    /**포스트 등록 후 피드를 업데이트*/
+    class FeedUpdateEvent(val isSuccess: Boolean)
+//    class EventGoToStore()
 }
 
 
